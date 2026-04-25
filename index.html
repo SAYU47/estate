@@ -1,322 +1,424 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Подбор недвижимости</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Caveat:wght@500&display=swap" rel="stylesheet">
-
-<style>
-
-body{
-  margin:0;
-  font-family:'Montserrat', sans-serif;
-  background:linear-gradient(180deg,#ffffff,#f9f9f9);
-  color:#111;
-}
-
-.container{
-  max-width:420px;
-  margin:auto;
-  padding:20px;
-}
-
-.hero-img{
-  width:100%;
-  border-radius:20px;
-  margin-bottom:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.1);
-}
-
-h1{
-  font-size:26px;
-  margin-bottom:5px;
-}
-
-.hand{
-  font-family:'Caveat', cursive;
-  font-size:22px;
-  color:#000;
-  margin-bottom:20px;
-}
-
-.desc{
-  color:#666;
-  margin-bottom:25px;
-}
-
-/* BLOCK */
-
-.block{
-  position:relative;
-  background:linear-gradient(180deg,#ffffff,#f3f3f3);
-  padding:20px;
-  border-radius:18px;
-  margin-bottom:20px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.05);
-}
-
-.number{
-  position:absolute;
-  top:10px;
-  right:15px;
-  font-size:40px;
-  font-weight:700;
-  color:#ececec;
-}
-
-.block-title{
-  font-weight:600;
-  margin-bottom:10px;
-}
-
-/* OPTIONS */
-
-.option{
-  padding:14px;
-  border-radius:12px;
-  background:#eee;
-  margin-top:10px;
-  text-align:center;
-  cursor:pointer;
-  font-weight:600;
-  transition:0.2s;
-}
-
-.option:hover{
-  transform:scale(1.02);
-}
-
-.option.active{
-  background:linear-gradient(135deg,#ffd43b,#ffb800);
-  color:#000;
-  box-shadow:0 5px 15px rgba(255,200,0,0.3);
-}
-
-/* INPUT */
-
-input{
-  width:100%;
-  padding:14px;
-  border-radius:12px;
-  border:none;
-  margin-top:10px;
-  background:#eee;
-  box-shadow:inset 0 2px 5px rgba(0,0,0,0.05);
-}
-
-/* RADIO */
-
-.radio{
-  display:flex;
-  align-items:center;
-  margin-top:12px;
-  cursor:pointer;
-}
-
-.circle{
-  width:20px;
-  height:20px;
-  border-radius:50%;
-  border:2px solid #ccc;
-  margin-right:10px;
-  position:relative;
-}
-
-.circle.active{
-  border:none;
-  background:linear-gradient(135deg,#ffd43b,#ffb800);
-  box-shadow:0 0 10px rgba(255,200,0,0.5);
-}
-
-/* BUTTON */
-
-button{
-  width:100%;
-  padding:18px;
-  border:none;
-  border-radius:16px;
-  background:linear-gradient(135deg,#ffd43b,#ffb800);
-  font-size:16px;
-  font-weight:600;
-  cursor:pointer;
-  box-shadow:0 10px 20px rgba(255,200,0,0.3);
-  transition:0.2s;
-}
-
-button:hover{
-  transform:translateY(-2px);
-}
-
-button:active{
-  transform:scale(0.97);
-}
-
-/* SUCCESS */
-
-.success{
-  display:none;
-  text-align:center;
-}
-
-.success img{
-  width:100%;
-  border-radius:20px;
-  margin-bottom:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.1);
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-<img src="photo.jpg" class="hero-img">
-
-<h1>Подобрать квартиру в новостройке</h1>
-<div class="hand">с командой Евгения Григорьева</div>
-
-<p class="desc">
-Заполните анкету, чтобы получить бесплатную консультацию, подбор квартиры и одобрение ипотеки
-</p>
-
-<!-- 01 -->
-<div class="block">
-<div class="number">01</div>
-<div class="block-title">Где хотите купить?</div>
-
-<div class="option" onclick="selectOption(this,'city','Красноярск')">Красноярск</div>
-<div class="option" onclick="selectOption(this,'city','Москва')">Москва</div>
-<div class="option" onclick="selectOption(this,'city','Дубай')">Дубай</div>
-</div>
-
-<!-- 02 -->
-<div class="block">
-<div class="number">02</div>
-<div class="block-title">Ваше имя</div>
-<input type="text" id="name" placeholder="Введите имя">
-</div>
-
-<!-- 03 -->
-<div class="block">
-<div class="number">03</div>
-<div class="block-title">Телефон</div>
-<input type="tel" id="phone" value="+7" maxlength="12">
-</div>
-
-<!-- 04 -->
-<div class="block">
-<div class="number">04</div>
-<div class="block-title">Бюджет</div>
-
-<div class="radio" onclick="selectRadio(this,'budget','до 10 млн')">
-<div class="circle"></div> до 10 млн
-</div>
-
-<div class="radio" onclick="selectRadio(this,'budget','10-15 млн')">
-<div class="circle"></div> 10-15 млн
-</div>
-
-<div class="radio" onclick="selectRadio(this,'budget','15+ млн')">
-<div class="circle"></div> 15+ млн
-</div>
-</div>
-
-<!-- 05 -->
-<div class="block">
-<div class="number">05</div>
-<div class="block-title">Срок покупки</div>
-
-<div class="radio" onclick="selectRadio(this,'time','Срочно')">
-<div class="circle"></div> Как можно скорее
-</div>
-
-<div class="radio" onclick="selectRadio(this,'time','2-3 месяца')">
-<div class="circle"></div> 2-3 месяца
-</div>
-
-<div class="radio" onclick="selectRadio(this,'time','Позже')">
-<div class="circle"></div> Позже
-</div>
-</div>
-
-<button onclick="send()">Отправить заявку</button>
-
-<div id="success" class="success">
-<img src="photo.jpg">
-
-<h2>Спасибо за заявку</h2>
-
-<p>
-Мы уже изучаем ваш запрос и скоро свяжемся с вами.<br><br>
-Подпишитесь на Telegram с квартирами и акциями
-</p>
-
-<button onclick="goTG()">Перейти в Telegram</button>
-</div>
-
-</div>
-
-<script>
-
-let data = {};
-
-function selectOption(el,key,value){
-  document.querySelectorAll('.option').forEach(o=>o.classList.remove('active'));
-  el.classList.add('active');
-  data[key]=value;
-}
-
-function selectRadio(el,key,value){
-  el.parentElement.querySelectorAll('.circle').forEach(c=>c.classList.remove('active'));
-  el.querySelector('.circle').classList.add('active');
-  data[key]=value;
-}
-
-function send(){
-
-  const name = document.getElementById('name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-
-  if(!name || !phone){
-    alert("Заполните все поля");
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append("name", name);
-  formData.append("phone", phone);
-  formData.append("city", data.city);
-  formData.append("budget", data.budget);
-  formData.append("time", data.time);
-
-  fetch("https://formspree.io/f/mnjolzzv", {
-    method:"POST",
-    body:formData,
-    headers:{'Accept':'application/json'}
-  })
-  .then(res=>{
-    if(res.ok){
-      document.querySelector('.container').innerHTML =
-      document.getElementById('success').innerHTML;
-    } else {
-      alert("Ошибка. Попробуйте без VPN");
-    }
-  })
-  .catch(()=>{
-    alert("Ошибка сети");
-  });
-}
-
-function goTG(){
-  window.location.href="https://t.me/+_stlczeu_l0zMDIy";
-}
-
-</script>
-
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Подбор недвижимости</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Caveat:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <img src="photo.png" class="hero-img" alt="" />
+
+      <div class="hero-lead">
+        <h1 class="hero-title">
+          <span class="hero-title__row hero-title__row--bold"
+            >Подобрать квартиру</span
+          >
+          <span class="hero-title__row">
+            <span class="hero-title__mark">в новостройке</span>
+          </span>
+          <span class="hero-title__row hero-title__row--reg">с командой</span>
+        </h1>
+
+        <div class="title-pict">
+          <img
+            src="title.png"
+            class="caption-title"
+            width="1086"
+            height="270"
+            alt="Евгения Григорьева"
+          />
+        </div>
+
+        <p class="desc">
+          Заполните анкету, чтобы получить бесплатную консультацию, подбор
+          квартиры и одобрение ипотеки
+        </p>
+      </div>
+
+      <form class="quiz" onsubmit="return send(event);">
+        <!-- 01 -->
+        <section class="q" data-q="01">
+          <div class="q__num" aria-hidden="true">01</div>
+          <div class="q__main">
+            <div class="q__title">Где хотите купить квартиру?</div>
+            <div class="q__row q__row--3" data-group="city">
+              <button
+                type="button"
+                class="pill pill--active"
+                data-value="Красноярск"
+                onclick="pickPill(this, 'city')"
+              >
+                Красноярск
+              </button>
+              <button
+                type="button"
+                class="pill"
+                data-value="Москва"
+                onclick="pickPill(this, 'city')"
+              >
+                Москва
+              </button>
+              <button
+                type="button"
+                class="pill"
+                data-value="Дубай/ОАЭ"
+                onclick="pickPill(this, 'city')"
+              >
+                Дубай/ОАЭ
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 02 -->
+        <section class="q" data-q="02">
+          <div class="q__num" aria-hidden="true">02</div>
+          <div class="q__main">
+            <div class="q__title">Что вы ищете?</div>
+            <div class="q__row q__row--2" data-group="type">
+              <button
+                type="button"
+                class="card card--active"
+                data-value="Квартира"
+                onclick="pickCard(this, 'type')"
+              >
+                <span class="card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22">
+                    <path
+                      fill="currentColor"
+                      d="M4 21V3h10v6h6v12H4Zm2-2h12V11h-4V5H6v14Zm2-10h4V7H8v2Zm0 4h4v-2H8v2Zm0 4h4v-2H8v2Zm6-4h2v-2h-2v2Zm0 4h2v-2h-2v2Z"
+                    />
+                  </svg>
+                </span>
+                <span class="card__label">Квартира</span>
+                <span class="card__check" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" width="16" height="16">
+                    <path
+                      fill="currentColor"
+                      d="M8.2 13.6 4.9 10.3l1.1-1.1 2.2 2.2 5-5 1.1 1.1-6.1 6.1Z"
+                    />
+                  </svg>
+                </span>
+              </button>
+              <button
+                type="button"
+                class="card"
+                data-value="Дом"
+                onclick="pickCard(this, 'type')"
+              >
+                <span class="card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22">
+                    <path
+                      fill="currentColor"
+                      d="M12 3 2 12h3v9h6v-6h2v6h6v-9h3L12 3Z"
+                    />
+                  </svg>
+                </span>
+                <span class="card__label">Дом</span>
+                <span class="card__check" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" width="16" height="16">
+                    <path
+                      fill="currentColor"
+                      d="M8.2 13.6 4.9 10.3l1.1-1.1 2.2 2.2 5-5 1.1 1.1-6.1 6.1Z"
+                    />
+                  </svg>
+                </span>
+                <span class="card__radio" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 03 -->
+        <section class="q" data-q="03">
+          <div class="q__num" aria-hidden="true">03</div>
+          <div class="q__main">
+            <div class="q__title">Планируемый бюджет</div>
+            <div class="q__row q__row--3" data-group="budget">
+              <button
+                type="button"
+                class="pill pill--active"
+                data-value="До 5 млн ₽"
+                onclick="pickPill(this, 'budget')"
+              >
+                До 5 млн ₽
+              </button>
+              <button
+                type="button"
+                class="pill"
+                data-value="5 - 10 млн ₽"
+                onclick="pickPill(this, 'budget')"
+              >
+                5 - 10 млн ₽
+              </button>
+              <button
+                type="button"
+                class="pill"
+                data-value="Более 10 млн ₽"
+                onclick="pickPill(this, 'budget')"
+              >
+                Более 10 млн ₽
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 04 -->
+        <section class="q" data-q="04">
+          <div class="q__num" aria-hidden="true">04</div>
+          <div class="q__main">
+            <div class="q__title">Ваше имя</div>
+            <label class="field">
+              <input
+                class="field__input"
+                type="text"
+                id="name"
+                placeholder="Введите ваше имя"
+                autocomplete="name"
+              />
+              <span class="field__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18">
+                  <path
+                    fill="currentColor"
+                    d="M12 12a4.2 4.2 0 1 0 0-8.4A4.2 4.2 0 0 0 12 12Zm0 2.1c-4.4 0-8 2.2-8 5v1.3h16V19c0-2.8-3.6-4.9-8-4.9Z"
+                  />
+                </svg>
+              </span>
+            </label>
+          </div>
+        </section>
+
+        <!-- 05 -->
+        <section class="q" data-q="05">
+          <div class="q__num" aria-hidden="true">05</div>
+          <div class="q__main">
+            <div class="q__title">Номер телефона</div>
+            <label class="field field--phone">
+              <span class="field__flag" aria-hidden="true">🇷🇺</span>
+              <span class="field__prefix" aria-hidden="true">+7</span>
+              <input
+                class="field__input field__input--phone"
+                type="tel"
+                id="phone"
+                placeholder="(___) ___-__-__"
+                inputmode="tel"
+                autocomplete="tel"
+              />
+              <span class="field__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18">
+                  <path
+                    fill="currentColor"
+                    d="M6.6 10.8c1.4 2.7 3.6 4.9 6.3 6.3l2.1-2.1c.3-.3.7-.4 1.1-.2 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.2 1.1l-2.3 2.9Z"
+                  />
+                </svg>
+              </span>
+            </label>
+          </div>
+        </section>
+
+        <button class="submit" type="submit">
+          <span class="submit__text">Отправить заявку</span>
+          <span class="submit__arrow" aria-hidden="true">→</span>
+        </button>
+
+        <section class="benefits" aria-label="Преимущества">
+          <div class="benefits__grid">
+            <div class="benefit">
+              <div class="benefit__top">
+                <span class="benefit__icon" aria-hidden="true">
+                  <img
+                    src="assets/icons/benefit-01-target.svg"
+                    width="22"
+                    height="22"
+                    alt=""
+                  />
+                </span>
+                <span class="benefit__num" aria-hidden="true">01</span>
+              </div>
+              <div class="benefit__text">Только актуальные<br />объекты</div>
+            </div>
+
+            <div class="benefit">
+              <div class="benefit__top">
+                <span class="benefit__icon" aria-hidden="true">
+                  <img
+                    src="assets/icons/benefit-02-award.svg"
+                    width="22"
+                    height="22"
+                    alt=""
+                  />
+                </span>
+                <span class="benefit__num" aria-hidden="true">02</span>
+              </div>
+              <div class="benefit__text">Помощь<br />в одобрении<br />ипотеки</div>
+            </div>
+
+            <div class="benefit">
+              <div class="benefit__top">
+                <span class="benefit__icon" aria-hidden="true">
+                  <img
+                    src="assets/icons/benefit-03-handshake.svg"
+                    width="22"
+                    height="22"
+                    alt=""
+                  />
+                </span>
+                <span class="benefit__num" aria-hidden="true">03</span>
+              </div>
+              <div class="benefit__text">Полное<br />сопровождение<br />сделки</div>
+            </div>
+
+            <div class="benefit">
+              <div class="benefit__top">
+                <span class="benefit__icon" aria-hidden="true">
+                  <img
+                    src="assets/icons/benefit-04-clock.svg"
+                    width="22"
+                    height="22"
+                    alt=""
+                  />
+                </span>
+                <span class="benefit__num" aria-hidden="true">04</span>
+              </div>
+              <div class="benefit__text">Экономим<br />ваше время<br />и деньги</div>
+            </div>
+          </div>
+        </section>
+      </form>
+
+      <div id="success" class="success">
+        <img src="photo.jpg" />
+
+        <h2>Спасибо за заявку</h2>
+
+        <p>
+          Мы уже изучаем ваш запрос и скоро свяжемся с вами.<br /><br />
+          Подпишитесь на Telegram с квартирами и акциями
+        </p>
+
+        <button onclick="goTG()">Перейти в Telegram</button>
+      </div>
+    </div>
+
+    <script>
+      const data = {
+        city: "Красноярск",
+        type: "Квартира",
+        budget: "До 5 млн ₽",
+      };
+
+      function pickPill(btn, key) {
+        const row = btn.closest("[data-group]");
+        row
+          .querySelectorAll(".pill")
+          .forEach((b) => b.classList.remove("pill--active"));
+        btn.classList.add("pill--active");
+        data[key] = btn.dataset.value || btn.textContent.trim();
+      }
+
+      function pickCard(btn, key) {
+        const row = btn.closest("[data-group]");
+        row
+          .querySelectorAll(".card")
+          .forEach((b) => b.classList.remove("card--active"));
+        btn.classList.add("card--active");
+        data[key] = btn.dataset.value || btn.textContent.trim();
+      }
+
+      function normalizePhone(raw) {
+        const digits = (raw || "").replace(/\D/g, "");
+        // принимает ввод как "9xxxxxxxxx" или "7xxxxxxxxxx"
+        if (digits.length === 11 && digits.startsWith("7")) return `+${digits}`;
+        if (digits.length === 10) return `+7${digits}`;
+        if (digits.length > 0 && digits.startsWith("8") && digits.length === 11)
+          return `+7${digits.slice(1)}`;
+        return raw.trim();
+      }
+
+      function formatRuPhoneLocal(raw) {
+        let d = (raw || "").replace(/\D/g, "");
+        // если вставили целиком +7 / 8 / 7XXXXXXXXXX — выкидываем префикс и оставляем 10 цифр
+        if (d.length >= 11 && (d.startsWith("7") || d.startsWith("8")))
+          d = d.slice(1);
+        d = d.slice(0, 10);
+
+        const a = d.slice(0, 3);
+        const b = d.slice(3, 6);
+        const c = d.slice(6, 8);
+        const e = d.slice(8, 10);
+
+        if (d.length === 0) return "";
+        if (d.length <= 3) return `(${a}`;
+        if (d.length <= 6) return `(${a}) ${b}`;
+        if (d.length <= 8) return `(${a}) ${b}-${c}`;
+        return `(${a}) ${b}-${c}-${e}`;
+      }
+
+      const phoneEl = document.getElementById("phone");
+      if (phoneEl) {
+        phoneEl.addEventListener("input", () => {
+          const next = formatRuPhoneLocal(phoneEl.value);
+          phoneEl.value = next;
+        });
+
+        phoneEl.addEventListener("paste", (ev) => {
+          // гарантируем, что после вставки сразу применится формат
+          requestAnimationFrame(() => {
+            phoneEl.value = formatRuPhoneLocal(phoneEl.value);
+          });
+        });
+      }
+
+      function send(e) {
+        if (e) e.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const phone = normalizePhone(document.getElementById("phone").value);
+
+        if (!name || !phone) {
+          alert("Заполните все поля");
+          return false;
+        }
+
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("phone", phone);
+        formData.append("city", data.city || "");
+        formData.append("type", data.type || "");
+        formData.append("budget", data.budget || "");
+
+        fetch("https://formspree.io/f/mnjolzzv", {
+          method: "POST",
+          body: formData,
+          headers: { Accept: "application/json" },
+        })
+          .then((res) => {
+            if (res.ok) {
+              document.querySelector(".container").innerHTML =
+                document.getElementById("success").innerHTML;
+            } else {
+              alert("Ошибка. Попробуйте без VPN");
+            }
+          })
+          .catch(() => {
+            alert("Ошибка сети");
+          });
+
+        return false;
+      }
+
+      function goTG() {
+        window.location.href = "https://t.me/+_stlczeu_l0zMDIy";
+      }
+    </script>
+  </body>
 </html>

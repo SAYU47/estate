@@ -29,9 +29,11 @@ img {
   padding: 20px 22px 34px;
 }
 
+/* Мобилка: фото слева (шире), текст справа (уже); от 768px — как на десктопе */
 .hero {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(124px, 50%) minmax(0, 1fr);
+  column-gap: clamp(6px, 1.6vw, 12px);
   align-items: start;
   margin-bottom: 18px;
 }
@@ -49,21 +51,22 @@ img {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   position: relative;
   margin-bottom: 0;
   min-height: 0;
+  min-width: 0;
 }
 
-  /* Многострочный заголовок: под фото, над title.png */
+  /* Многострочный заголовок; на десктопе — в правой колонке над title.png */
   .hero-title {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 0.12em;
-    margin: 0 0 12px 0;
-    font-size: clamp(28px, 6.4vw, 40px);
-    line-height: 1.1;
+    gap: 0.08em;
+    margin: 0 0 8px 0;
+    font-size: clamp(14px, 3.8vw, 20px);
+    line-height: 1.12;
     color: #000;
     text-align: left;
   }
@@ -72,17 +75,17 @@ img {
   display: flex;
   align-items: baseline;
   width: 100%;
-  font-size: clamp(30px, 3.2vw, 44px);
+  font-size: clamp(15px, 4vw, 22px);
 }
 
   .hero-title__row--bold {
     font-weight: 700;
-    padding-top: 50px;
+    padding-top: 0;
   }
 
   .hero-title__row--reg {
     font-weight: 400;
-    font-size: clamp(22px, 2.6vw, 34px);
+    font-size: clamp(12px, 3.2vw, 18px);
   }
 
   .hero-title__mark {
@@ -90,7 +93,7 @@ img {
     width: fit-content;
     font-weight: 700;
     color: #000;
-    font-size: clamp(26px, 3vw, 40px);
+    font-size: clamp(13px, 3.6vw, 20px);
     /* «Кисть» по краям */
     background: linear-gradient(
       90deg,
@@ -116,13 +119,13 @@ img {
 
 .desc {
   color: #3a3a3a;
-  font-size: clamp(16px, 1.6vw, 18px);
-  line-height: 1.35;
+  font-size: clamp(12px, 3.1vw, 15px);
+  line-height: 1.3;
   max-width: none;
-  margin: 10px 0 0 0;
+  margin: 6px 0 0 0;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
   .hero {
     grid-template-columns: minmax(300px, 42%) minmax(0, 1fr);
     align-items: stretch;
@@ -147,6 +150,11 @@ img {
       clamp(8px, 1.5vw, 20px);
     max-width: 640px;
     width: 100%;
+    
+  }
+
+  .hero-title__row--bold {
+    padding-top: 50px;
   }
 
   .hero-title {
@@ -174,6 +182,27 @@ img {
 
   .caption-title {
     max-width: 100%;
+  }
+}
+
+/* 400–800px: левая и правая колонки героя одной высоты (фото + блок с текстом и подписью) */
+@media (min-width: 400px) and (max-width: 800px) {
+  .hero {
+    align-items: stretch;
+  }
+
+  .hero-img {
+    height: 100%;
+    min-height: 0;
+    align-self: stretch;
+    object-fit: contain;
+    object-position: left bottom;
+  }
+
+  .hero-lead {
+    align-self: stretch;
+    min-height: 0;
+    justify-content: center;
   }
 }
 
@@ -581,15 +610,17 @@ img {
     display: none;
   }
 }
+.hero-lead {
+  justify-content: center;
+  max-width: 640px;
 
+  width: 100%;
+  
+}
 @media (max-width: 560px) {
   .container {
     max-width: none;
     padding: 16px 10px 24px;
-  }
-
-  .desc {
-    font-size: clamp(16px, 4.4vw, 18px);
   }
 
   .q {
@@ -656,7 +687,14 @@ img {
     grid-template-columns: 1fr;
     gap: 0;
   }
-
+  .hero-lead {
+    justify-content: center;
+    align-self: center;
+padding-top: 20px;
+    max-width: 640px;
+    width: 100%;
+    
+  }
   .benefit {
     display: grid;
     grid-template-columns: 128px 1fr;
@@ -687,28 +725,41 @@ img {
     max-width: none;
     padding: 14px 8px 22px;
   }
-  .hero{
-    gap: 14px;
+  
+
+  .hero {
+    grid-template-columns: minmax(108px, 54%) minmax(0, 1fr);
+    column-gap: 6px;
   }
+
   .hero-title__row--bold {
     font-weight: 700;
     padding-top: 0;
   }
+
   .benefit {
     grid-template-columns: 112px 1fr;
     min-height: 74px;
   }
 
+  .hero-title {
+    font-size: clamp(13px, 3.6vw, 18px);
+  }
+
   .hero-title__row {
-    font-size: clamp(32px, 9vw, 40px);
+    font-size: clamp(14px, 3.9vw, 19px);
   }
 
   .hero-title__row--reg {
-    font-size: clamp(24px, 7.2vw, 32px);
+    font-size: clamp(11px, 3vw, 16px);
   }
 
   .hero-title__mark {
-    font-size: clamp(30px, 8.8vw, 40px);
+    font-size: clamp(12px, 3.4vw, 18px);
+  }
+
+  .desc {
+    font-size: clamp(11px, 2.9vw, 14px);
   }
 
   .q__title {

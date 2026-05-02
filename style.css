@@ -77,6 +77,7 @@ img {
 
   .hero-title__row--bold {
     font-weight: 700;
+    padding-top: 50px;
   }
 
   .hero-title__row--reg {
@@ -689,7 +690,10 @@ img {
   .hero{
     gap: 14px;
   }
-
+  .hero-title__row--bold {
+    font-weight: 700;
+    padding-top: 0;
+  }
   .benefit {
     grid-template-columns: 112px 1fr;
     min-height: 74px;

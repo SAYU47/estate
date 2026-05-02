@@ -32,25 +32,27 @@ img {
 .hero {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 14px;
   align-items: start;
   margin-bottom: 18px;
 }
 
 .hero-img {
+  display: block;
   width: 100%;
-  border-radius: 20px;
   margin-bottom: 0;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  object-fit: cover;
+  /* целиком PNG без обрезки (точки и края макета) */
+  object-fit: contain;
+  object-position: left bottom;
 }
 
 .hero-lead {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
   position: relative;
   margin-bottom: 0;
+  min-height: 0;
 }
 
   /* Многострочный заголовок: под фото, над title.png */
@@ -121,17 +123,56 @@ img {
 
 @media (min-width: 900px) {
   .hero {
-    grid-template-columns: minmax(260px, 420px) 1fr;
-    gap: 28px;
-    align-items: center;
+    grid-template-columns: minmax(300px, 42%) minmax(0, 1fr);
+    align-items: stretch;
+    /* выше блок — фото не упирается в низ с обрезанной макушкой */
+    min-height: clamp(520px, 52vw, 720px);
+    margin-bottom: 24px;
   }
 
   .hero-img {
-    max-height: 520px;
+    max-height: none;
+    height: 100%;
+    min-height: 0;
+    align-self: stretch;
+    object-fit: contain;
+    object-position: left bottom;
+  }
+
+  .hero-lead {
+    justify-content: center;
+    align-self: stretch;
+    padding: clamp(16px, 2.5vw, 32px) 0 clamp(16px, 2.5vw, 32px)
+      clamp(8px, 1.5vw, 20px);
+    max-width: 640px;
+    width: 100%;
+  }
+
+  .hero-title {
+    font-size: clamp(32px, 3.2vw, 46px);
+    margin-bottom: clamp(14px, 2vw, 22px);
+  }
+
+  .hero-title__row {
+    font-size: clamp(34px, 3.4vw, 50px);
+  }
+
+  .hero-title__row--reg {
+    font-size: clamp(24px, 2.2vw, 36px);
+  }
+
+  .hero-title__mark {
+    font-size: clamp(28px, 2.6vw, 44px);
+  }
+
+  .desc {
+    font-size: clamp(17px, 1.35vw, 19px);
+    line-height: 1.4;
+    margin-top: clamp(12px, 1.8vw, 20px);
   }
 
   .caption-title {
-    max-width: 720px;
+    max-width: 100%;
   }
 }
 
@@ -546,10 +587,6 @@ img {
     padding: 16px 10px 24px;
   }
 
-  .hero-img {
-    border-radius: 16px;
-  }
-
   .desc {
     font-size: clamp(16px, 4.4vw, 18px);
   }
@@ -648,6 +685,9 @@ img {
   .container {
     max-width: none;
     padding: 14px 8px 22px;
+  }
+  .hero{
+    gap: 14px;
   }
 
   .benefit {

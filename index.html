@@ -303,18 +303,18 @@
         </section>
       </form>
 
-      <div id="success" class="success">
-        <img src="photo.jpg" />
+      <template id="success-template">
+        <div class="success-page">
+          <h2>Спасибо за заявку</h2>
 
-        <h2>Спасибо за заявку</h2>
+          <p>
+            Мы уже изучаем ваш запрос и скоро свяжемся с вами.<br /><br />
+            Подпишитесь на Telegram с квартирами и акциями
+          </p>
 
-        <p>
-          Мы уже изучаем ваш запрос и скоро свяжемся с вами.<br /><br />
-          Подпишитесь на Telegram с квартирами и акциями
-        </p>
-
-        <button onclick="goTG()">Перейти в Telegram</button>
-      </div>
+          <button type="button" onclick="goTG()">Перейти в Telegram</button>
+        </div>
+      </template>
     </div>
 
     <script>
@@ -412,7 +412,7 @@
           .then((res) => {
             if (res.ok) {
               document.querySelector(".container").innerHTML =
-                document.getElementById("success").innerHTML;
+                document.getElementById("success-template").innerHTML;
             } else {
               alert("Ошибка. Попробуйте без VPN");
             }

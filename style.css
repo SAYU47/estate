@@ -29,22 +29,25 @@ img {
   padding: 20px 22px 34px;
 }
 
-/* Мобилка: фото слева (шире), текст справа (уже); от 768px — как на десктопе */
+/* Фото слева от текста; узкая колонка — масштаб как на макете */
 .hero {
   display: grid;
-  grid-template-columns: minmax(124px, 50%) minmax(0, 1fr);
-  column-gap: clamp(6px, 1.6vw, 12px);
+  grid-template-columns: minmax(72px, clamp(88px, 30vw, 300px)) minmax(0, 1fr);
+  column-gap: clamp(8px, 2vw, 20px);
   align-items: start;
-  margin-bottom: 18px;
+
 }
 
 .hero-img {
   display: block;
-  width: 100%;
-  margin-bottom: 0;
-  /* целиком PNG без обрезки (точки и края макета) */
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+  align-self: start;
+  justify-self: start;
   object-fit: contain;
-  object-position: left bottom;
+  object-position: left top;
 }
 
 .hero-lead {
@@ -56,9 +59,10 @@ img {
   margin-bottom: 0;
   min-height: 0;
   min-width: 0;
+  max-width: 640px;
 }
 
-  /* Многострочный заголовок; на десктопе — в правой колонке над title.png */
+  /* Многострочный заголовок; на десктопе — справа от фото, над title.png */
   .hero-title {
     display: flex;
     flex-direction: column;
@@ -127,34 +131,29 @@ img {
 
 @media (min-width: 768px) {
   .hero {
-    grid-template-columns: minmax(300px, 42%) minmax(0, 1fr);
-    align-items: stretch;
-    /* выше блок — фото не упирается в низ с обрезанной макушкой */
-    min-height: clamp(520px, 52vw, 720px);
+    grid-template-columns: minmax(180px, clamp(200px, 26vw, 340px)) minmax(0, 1fr);
+    align-items: start;
     margin-bottom: 24px;
   }
 
   .hero-img {
-    max-height: none;
-    height: 100%;
-    min-height: 0;
-    align-self: stretch;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: clamp(260px, 36vw, 440px);
     object-fit: contain;
-    object-position: left bottom;
+    object-position: left top;
   }
 
   .hero-lead {
-    justify-content: center;
-    align-self: stretch;
-    padding: clamp(16px, 2.5vw, 32px) 0 clamp(16px, 2.5vw, 32px)
-      clamp(8px, 1.5vw, 20px);
-    max-width: 640px;
+    justify-content: flex-start;
+    align-self: start;
+    padding: 0 0 clamp(16px, 2.5vw, 32px) clamp(8px, 1.5vw, 20px);
     width: 100%;
-    
   }
 
   .hero-title__row--bold {
-    padding-top: 50px;
+    padding-top: 0;
   }
 
   .hero-title {
@@ -185,24 +184,21 @@ img {
   }
 }
 
-/* 400–800px: левая и правая колонки героя одной высоты (фото + блок с текстом и подписью) */
+/* 400–800px: фото слева, без растягивания по высоте строки */
 @media (min-width: 400px) and (max-width: 800px) {
   .hero {
-    align-items: stretch;
+    align-items: start;
   }
 
   .hero-img {
-    height: 100%;
-    min-height: 0;
-    align-self: stretch;
     object-fit: contain;
-    object-position: left bottom;
+    object-position: left top;
+    max-height: clamp(220px, 50vw, 400px);
   }
 
   .hero-lead {
-    align-self: stretch;
     min-height: 0;
-    justify-content: center;
+    justify-content: flex-start;
   }
 }
 
@@ -217,7 +213,7 @@ img {
   grid-template-columns: 88px 1fr;
   column-gap: 18px;
   align-items: start;
-  padding: 10px 0 0;
+  /* padding: 10px 0 0; */
 }
 
 .q + .q {
@@ -544,18 +540,35 @@ img {
   color: #111;
 }
 
-  /* SUCCESS */
+  /* SUCCESS (разметка в <template>, в DOM до отправки не попадает) */
 
-  .success {
-    display: none;
+  .success-page {
     text-align: center;
+    padding: 24px 0 40px;
   }
 
-  .success img {
-    width: 100%;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  .success-page h2 {
+    margin: 0 0 16px;
+    font-size: clamp(22px, 5vw, 28px);
+  }
+
+  .success-page p {
+    margin: 0 auto 24px;
+    color: #3a3a3a;
+    line-height: 1.45;
+    max-width: 520px;
+  }
+
+  .success-page button {
+    appearance: none;
+    border: 0;
+    border-radius: 14px;
+    padding: 16px 24px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    background: #f4c000;
+    color: #121212;
   }
   /* Подпись: обрезанный PNG, без зазора под картинкой (как иконка) */
   .title-pict {
@@ -609,13 +622,6 @@ img {
   .benefit + .benefit::before {
     display: none;
   }
-}
-.hero-lead {
-  justify-content: center;
-  max-width: 640px;
-
-  width: 100%;
-  
 }
 @media (max-width: 560px) {
   .container {
@@ -688,12 +694,10 @@ img {
     gap: 0;
   }
   .hero-lead {
-    justify-content: center;
-    align-self: center;
-padding-top: 20px;
-    max-width: 640px;
+    justify-content: flex-start;
+    align-self: start;
+    padding-top: 0;
     width: 100%;
-    
   }
   .benefit {
     display: grid;
@@ -728,13 +732,19 @@ padding-top: 20px;
   
 
   .hero {
-    grid-template-columns: minmax(108px, 54%) minmax(0, 1fr);
+    grid-template-columns: minmax(64px, clamp(76px, 38vw, 200px)) minmax(0, 1fr);
     column-gap: 6px;
+  }
+
+  .hero-img {
+    max-height: 180px
+    
   }
 
   .hero-title__row--bold {
     font-weight: 700;
     padding-top: 0;
+ 
     
   }
 
@@ -748,15 +758,15 @@ padding-top: 20px;
   }
 
   .hero-title__row {
-    font-size: clamp(14px, 3.9vw, 19px);
+    font-size: 18px
   }
 
   .hero-title__row--reg {
-    font-size: clamp(11px, 3vw, 16px);
+    font-size: 16px
   }
 
   .hero-title__mark {
-    font-size: clamp(12px, 3.4vw, 18px);
+    font-size: 18px
   }
 
   .desc {

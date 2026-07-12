@@ -448,7 +448,7 @@ a {
   outline: 0;
   color: #222;
   background: transparent;
-  font-size: 11px;
+  font-size: 16px;
 }
 
 .input-wrap input::placeholder {
@@ -835,10 +835,6 @@ body > .grecaptcha-badge {
 
   .input-wrap {
     height: 48px;
-  }
-
-  .input-wrap input {
-    font-size: 12px;
   }
 
   .benefit__text {

@@ -2,24 +2,48 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>Подбор недвижимости</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffc800" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="agency" />
+    <title>Новостройки К</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Caveat:wght@500&display=swap"
+      rel="icon"
+      href="assets/icons/favicon-32x32.png"
+      sizes="32x32"
+      type="image/png"
+    />
+    <link
+      rel="icon"
+      href="assets/icons/favicon-16x16.png"
+      sizes="16x16"
+      type="image/png"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="assets/icons/apple-touch-icon.png"
+      sizes="180x180"
+    />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Montserrat:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
   </head>
-
   <body>
-    <div class="container">
+    <main class="page">
       <section class="hero" aria-label="Вводный блок">
-        <img src="photo.png" class="hero-img" alt="" />
+        <img
+          src="photo.png"
+          class="hero-img"
+          alt="Евгений Григорьев, специалист по недвижимости"
+        />
 
         <div class="hero-lead">
-          <h1 class="hero-title">
+          <h1 class="hero-title" id="page-title">
             <span class="hero-title__row hero-title__row--bold"
               >Подобрать квартиру</span
             >
@@ -46,762 +70,826 @@
         </div>
       </section>
 
-      <form class="quiz" onsubmit="return send(event);">
-        <!-- 01 -->
-        <section class="q" data-q="01">
-          <div class="q__num" aria-hidden="true">01</div>
-          <div class="q__main">
-            <div class="q__title">Где хотите купить квартиру?</div>
-            <div class="q__row q__row--3" data-group="city">
+      <div class="layout">
+        <form class="quiz" id="quiz-form">
+          <section class="question">
+            <img
+              class="decor decor--building"
+              src="assets/decor/building.png"
+              alt=""
+              aria-hidden="true"
+            />
+            <div class="question__number">
+              01
+              <img
+                class="question__wave"
+                src="assets/decor/wave-line.png"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
+            <h2>Где хотите купить квартиру?</h2>
+            <div class="options options--stack" data-group="city">
               <button
+                class="option is-active"
                 type="button"
-                class="pill pill--active"
                 data-value="Красноярск"
-                onclick="pickPill(this, 'city')"
               >
                 Красноярск
               </button>
-              <button
-                type="button"
-                class="pill"
-                data-value="Москва"
-                onclick="pickPill(this, 'city')"
-              >
+              <button class="option" type="button" data-value="Москва">
                 Москва
               </button>
-              <button
-                type="button"
-                class="pill"
-                data-value="Дубай/ОАЭ"
-                onclick="pickPill(this, 'city')"
-              >
+              <button class="option" type="button" data-value="Дубай/ОАЭ">
                 Дубай/ОАЭ
               </button>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <!-- 02 -->
-        <section class="q" data-q="02">
-          <div class="q__num" aria-hidden="true">02</div>
-          <div class="q__main">
-            <div class="q__title">Что вы ищете?</div>
-            <div class="q__row q__row--2" data-group="type">
+          <section class="question question--type">
+            <div class="question__number">
+              02
+              <img
+                class="question__wave"
+                src="assets/decor/wave-line.png"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
+            <h2>Что вы ищете?</h2>
+            <div class="options options--cards" data-group="type">
               <button
+                class="type-card is-active"
                 type="button"
-                class="card card--active"
                 data-value="Квартира"
-                onclick="pickCard(this, 'type')"
               >
-                <span class="card__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="22" height="22">
+                <span class="type-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
                     <path
-                      fill="currentColor"
-                      d="M4 21V3h10v6h6v12H4Zm2-2h12V11h-4V5H6v14Zm2-10h4V7H8v2Zm0 4h4v-2H8v2Zm0 4h4v-2H8v2Zm6-4h2v-2h-2v2Zm0 4h2v-2h-2v2Z"
+                      d="M5 21V3h11v7h3v11H5Zm3-14h2M8 11h2m-2 4h2m3-8h1m-1 4h1m-1 4h1"
                     />
                   </svg>
                 </span>
-                <span class="card__label">Квартира</span>
-                <span class="card__check" aria-hidden="true">
-                  <svg viewBox="0 0 20 20" width="16" height="16">
+                <span>Квартира</span>
+                <span class="radio" aria-hidden="true">
+                  <svg viewBox="0 0 20 20">
                     <path
                       fill="currentColor"
                       d="M8.2 13.6 4.9 10.3l1.1-1.1 2.2 2.2 5-5 1.1 1.1-6.1 6.1Z"
                     />
                   </svg>
                 </span>
-                <span class="card__radio" aria-hidden="true"></span>
               </button>
-              <button
-                type="button"
-                class="card"
-                data-value="Дом"
-                onclick="pickCard(this, 'type')"
-              >
-                <span class="card__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="22" height="22">
-                    <path
-                      fill="currentColor"
-                      d="M12 3 2 12h3v9h6v-6h2v6h6v-9h3L12 3Z"
-                    />
+              <button class="type-card" type="button" data-value="Дом">
+                <span class="type-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="m3 11 9-8 9 8M6 9v12h12V9M10 21v-6h4v6" />
                   </svg>
                 </span>
-                <span class="card__label">Дом</span>
-                <span class="card__check" aria-hidden="true">
-                  <svg viewBox="0 0 20 20" width="16" height="16">
+                <span>Дом</span>
+                <span class="radio" aria-hidden="true">
+                  <svg viewBox="0 0 20 20">
                     <path
                       fill="currentColor"
                       d="M8.2 13.6 4.9 10.3l1.1-1.1 2.2 2.2 5-5 1.1 1.1-6.1 6.1Z"
                     />
                   </svg>
                 </span>
-                <span class="card__radio" aria-hidden="true"></span>
+                <img
+                  class="type-card__arrow"
+                  src="assets/decor/arrow.png"
+                  alt=""
+                  aria-hidden="true"
+                />
               </button>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <!-- 03 -->
-        <section class="q" data-q="03">
-          <div class="q__num" aria-hidden="true">03</div>
-          <div class="q__main">
-            <div class="q__title">Планируемый бюджет</div>
-            <div class="q__row q__row--3" data-group="budget">
+          <section class="question">
+            <img
+              class="decor decor--sparkles"
+              src="assets/decor/sparkles.png"
+              alt=""
+              aria-hidden="true"
+            />
+            <div class="question__number">
+              03
+              <img
+                class="question__wave"
+                src="assets/decor/wave-line.png"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
+            <h2>Планируемый бюджет</h2>
+            <div class="options options--stack" data-group="budget">
               <button
+                class="option is-active"
                 type="button"
-                class="pill pill--active"
                 data-value="До 5 млн ₽"
-                onclick="pickPill(this, 'budget')"
               >
                 До 5 млн ₽
               </button>
-              <button
-                type="button"
-                class="pill"
-                data-value="5 - 10 млн ₽"
-                onclick="pickPill(this, 'budget')"
-              >
-                5 - 10 млн ₽
+              <button class="option" type="button" data-value="5–10 млн ₽">
+                5–10 млн ₽
               </button>
-              <button
-                type="button"
-                class="pill"
-                data-value="Более 10 млн ₽"
-                onclick="pickPill(this, 'budget')"
-              >
+              <button class="option" type="button" data-value="Более 10 млн ₽">
                 Более 10 млн ₽
               </button>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <!-- 04 -->
-        <section class="q" data-q="04">
-          <div class="q__num" aria-hidden="true">04</div>
-          <div class="q__main">
-            <div class="q__title">Ваше имя</div>
-            <label class="field">
+          <section class="question question--field">
+            <img
+              class="decor decor--field-sparkles"
+              src="assets/decor/sparkles.png"
+              alt=""
+              aria-hidden="true"
+            />
+            <div class="question__number">
+              04
+              <img
+                class="question__wave"
+                src="assets/decor/wave-line.png"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
+            <h2><label for="name">Ваше имя</label></h2>
+            <div class="input-wrap">
               <input
-                class="field__input"
-                type="text"
                 id="name"
+                name="name"
+                type="text"
                 placeholder="Введите ваше имя"
                 autocomplete="name"
+                required
               />
-              <span class="field__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="18" height="18">
-                  <path
-                    fill="currentColor"
-                    d="M12 12a4.2 4.2 0 1 0 0-8.4A4.2 4.2 0 0 0 12 12Zm0 2.1c-4.4 0-8 2.2-8 5v1.3h16V19c0-2.8-3.6-4.9-8-4.9Z"
-                  />
-                </svg>
-              </span>
-            </label>
-          </div>
-        </section>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8c0-4 3-6 7-6s7 2 7 6"
+                />
+              </svg>
+            </div>
+          </section>
 
-        <!-- 05 -->
-        <section class="q" data-q="05">
-          <div class="q__num" aria-hidden="true">05</div>
-          <div class="q__main">
-            <div class="q__title">Номер телефона</div>
-            <label class="field field--phone">
-              <span class="field__flag" aria-hidden="true">🇷🇺</span>
-              <span class="field__prefix" aria-hidden="true">+7</span>
+          <section class="question question--field">
+            <div class="question__number">
+              05
+              <img
+                class="question__wave"
+                src="assets/decor/wave-line.png"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
+            <h2><label for="phone">Номер телефона</label></h2>
+            <div class="input-wrap input-wrap--phone">
+              <span class="flag" aria-hidden="true">🇷🇺</span>
+              <span class="prefix">+7</span>
               <input
-                class="field__input field__input--phone"
-                type="tel"
                 id="phone"
+                name="phone"
+                type="tel"
                 placeholder="(___) ___-__-__"
                 inputmode="tel"
                 autocomplete="tel"
+                required
               />
-              <span class="field__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="18" height="18">
-                  <path
-                    fill="currentColor"
-                    d="M6.6 10.8c1.4 2.7 3.6 4.9 6.3 6.3l2.1-2.1c.3-.3.7-.4 1.1-.2 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.2 1.1l-2.3 2.9Z"
-                  />
-                </svg>
-              </span>
-            </label>
-          </div>
-        </section>
-
-        <button class="submit" type="submit">
-          <span class="submit__text">Отправить заявку</span>
-          <span class="submit__arrow" aria-hidden="true">→</span>
-        </button>
-
-        <section class="benefits" aria-label="Преимущества">
-          <div class="benefits__grid">
-            <div class="benefit">
-              <div class="benefit__top">
-                <span class="benefit__icon" aria-hidden="true">
-                  <img
-                    src="assets/icons/benefit-01-target.svg"
-                    width="22"
-                    height="22"
-                    alt=""
-                  />
-                </span>
-                <span class="benefit__num" aria-hidden="true">01</span>
-              </div>
-              <div class="benefit__text">Только актуальные<br />объекты</div>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M7 3H4c0 9.4 7.6 17 17 17v-3l-4-2-2 2c-3.6-1.4-6.6-4.4-8-8l2-2-2-4Z"
+                />
+              </svg>
             </div>
+          </section>
 
-            <div class="benefit">
-              <div class="benefit__top">
-                <span class="benefit__icon" aria-hidden="true">
-                  <img
-                    src="assets/icons/benefit-02-award.svg"
-                    width="22"
-                    height="22"
-                    alt=""
-                  />
-                </span>
-                <span class="benefit__num" aria-hidden="true">02</span>
-              </div>
-              <div class="benefit__text">
-                Помощь<br />в одобрении<br />ипотеки
-              </div>
-            </div>
-
-            <div class="benefit">
-              <div class="benefit__top">
-                <span class="benefit__icon" aria-hidden="true">
-                  <img
-                    src="assets/icons/benefit-03-handshake.svg"
-                    width="22"
-                    height="22"
-                    alt=""
-                  />
-                </span>
-                <span class="benefit__num" aria-hidden="true">03</span>
-              </div>
-              <div class="benefit__text">
-                Полное<br />сопровождение<br />сделки
-              </div>
-            </div>
-
-            <div class="benefit">
-              <div class="benefit__top">
-                <span class="benefit__icon" aria-hidden="true">
-                  <img
-                    src="assets/icons/benefit-04-clock.svg"
-                    width="22"
-                    height="22"
-                    alt=""
-                  />
-                </span>
-                <span class="benefit__num" aria-hidden="true">04</span>
-              </div>
-              <div class="benefit__text">
-                Экономим<br />ваше время<br />и деньги
-              </div>
-            </div>
-          </div>
-        </section>
-      </form>
-
-      <template id="success-template">
-        <div class="success-page">
-          <h2>Спасибо за заявку</h2>
-
-          <p>
-            Мы уже изучаем ваш запрос и скоро свяжемся с вами.<br /><br />
-            Подпишитесь на Telegram с квартирами и акциями
-          </p>
-
-          <button type="button" onclick="goTG()">Перейти в Telegram</button>
-        </div>
-      </template>
-    </div>
-
-    <section class="reviews" aria-labelledby="reviews-heading">
-      <div class="reviews__shell">
-        <div
-          class="reviews__bg"
-          style="
-            background-image: url(&quot;assets/reviews/bg-buildings.png&quot;);
-          "
-          aria-hidden="true"
-        ></div>
-        <div class="reviews__overlay" aria-hidden="true"></div>
-
-        <div class="reviews__content">
-          <h2 id="reviews-heading" class="reviews__heading">
-            Отзывы тех, кто уже совершил выгодную сделку с моей помощью
-          </h2>
-
-          <div class="reviews__carousel" data-reviews-carousel>
-            <div class="reviews__stage">
-              <div
-                class="reviews__viewport"
-                id="reviews-viewport"
-                data-reviews-viewport
-                tabindex="0"
-                role="region"
-                aria-roledescription="carousel"
-                aria-label="Отзывы клиентов"
-              >
-                <div class="reviews__track" data-reviews-track>
-                  <article
-                    class="review-card"
-                    data-review-index="0"
-                    aria-roledescription="slide"
-                  >
-                    <header class="review-card__head">
-                      <div
-                        class="review-card__avatar"
-                        style="--avatar-bg: #e8e8e8; --avatar-fg: #5c5c5c"
-                      >
-                        ЛХ
-                      </div>
-                      <div class="review-card__who">
-                        <div class="review-card__name">Лидия Х.</div>
-                        <div class="review-card__meta">
-                          21 февраля 2026, сделка была 17 февраля 2026
-                        </div>
-                      </div>
-                      <div
-                        class="review-card__stars"
-                        aria-label="Оценка 5 из 5"
-                      >
-                        ★★★★★
-                      </div>
-                    </header>
-                    <p class="review-card__text">
-                      Не навязывается, да — да, нет — нет. Не уговаривает, если
-                      квартира не понравится. Искал лучшие варианты, учитывал
-                      вид с окон. Помогает сделать сделку как можно дешевле. На
-                      протяжении всей мороки на связи, и даже после совершения
-                      сделки отвечает на все возникшие вопросы.
-                    </p>
-                    <footer class="review-card__foot">
-                      <span class="review-card__comments" aria-hidden="true">
-                        <svg
-                          width="18"
-                          height="18"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          aria-hidden="true"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M12.5 3C7.8056 3 4.00002 6.80558 4.00002 11.5C4.00002 13.3106 4.56503 14.9863 5.52839 16.3642C5.65702 16.5482 5.72 16.7701 5.70721 16.9942C5.67939 17.4813 5.61054 18.0464 5.4806 18.6961C5.34675 19.3654 5.17843 19.9417 4.99863 20.4321L8.84213 19.4072C9.04566 19.3529 9.26113 19.3643 9.45781 19.4397C10.401 19.8013 11.4262 20 12.5 20C17.1944 20 21 16.1944 21 11.5C21 6.80558 17.1944 3 12.5 3ZM2.28337 21.3026C2.28497 21.3008 2.28815 21.2973 2.2928 21.292C2.30653 21.2764 2.3331 21.2451 2.36973 21.1972C2.44292 21.1015 2.55663 20.939 2.68837 20.7019C2.95112 20.2289 3.28993 19.4515 3.51944 18.3039C3.60229 17.8896 3.65453 17.5251 3.6852 17.2072C2.61921 15.5638 2.00002 13.6029 2.00002 11.5C2.00002 5.70101 6.70103 1 12.5 1C18.299 1 23 5.70101 23 11.5C23 17.299 18.299 22 12.5 22C11.2942 22 10.1339 21.7963 9.05302 21.4208L3.25769 22.9662C2.82058 23.0828 2.35966 22.8914 2.1337 22.4995C1.91001 22.1115 1.97175 21.6227 2.28337 21.3026Z"
-                            fill="currentColor"
-                          />
-                        </svg>
-                        <span>1</span>
-                      </span>
-                    </footer>
-                  </article>
-
-                  <article
-                    class="review-card"
-                    data-review-index="1"
-                    aria-roledescription="slide"
-                  >
-                    <header class="review-card__head">
-                      <div
-                        class="review-card__avatar review-card__avatar--light"
-                        style="--avatar-bg: #d0d0d0; --avatar-fg: #fff"
-                      >
-                        Е
-                      </div>
-                      <div class="review-card__who">
-                        <div class="review-card__name">Елена Русакова</div>
-                        <div class="review-card__meta">4 отзыва</div>
-                      </div>
-                    </header>
-                    <div class="review-card__rating-row">
-                      <div
-                        class="review-card__stars review-card__stars--inline"
-                      >
-                        ★★★★★
-                      </div>
-                      <time class="review-card__date" datetime="2025-03-30"
-                        >30 марта 2025</time
-                      >
-                    </div>
-                    <p class="review-card__text">
-                      Огромная благодарность специалисту Евгению Григорьеву за
-                      оперативную и профессиональную помощь в покупке квартиры.
-                      Всё прошло быстро и спокойно. ❤️
-                    </p>
-                    <footer class="review-card__foot review-card__foot--rich">
-                      <button type="button" class="review-card__chip" disabled>
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="1.6"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3z"
-                          />
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
-                          />
-                        </svg>
-                        Полезно
-                      </button>
-                      <span class="review-card__stat">
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          aria-hidden="true"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M12.5 3C7.8056 3 4.00002 6.80558 4.00002 11.5C4.00002 13.3106 4.56503 14.9863 5.52839 16.3642C5.65702 16.5482 5.72 16.7701 5.70721 16.9942C5.67939 17.4813 5.61054 18.0464 5.4806 18.6961C5.34675 19.3654 5.17843 19.9417 4.99863 20.4321L8.84213 19.4072C9.04566 19.3529 9.26113 19.3643 9.45781 19.4397C10.401 19.8013 11.4262 20 12.5 20C17.1944 20 21 16.1944 21 11.5C21 6.80558 17.1944 3 12.5 3ZM2.28337 21.3026C2.28497 21.3008 2.28815 21.2973 2.2928 21.292C2.30653 21.2764 2.3331 21.2451 2.36973 21.1972C2.44292 21.1015 2.55663 20.939 2.68837 20.7019C2.95112 20.2289 3.28993 19.4515 3.51944 18.3039C3.60229 17.8896 3.65453 17.5251 3.6852 17.2072C2.61921 15.5638 2.00002 13.6029 2.00002 11.5C2.00002 5.70101 6.70103 1 12.5 1C18.299 1 23 5.70101 23 11.5C23 17.299 18.299 22 12.5 22C11.2942 22 10.1339 21.7963 9.05302 21.4208L3.25769 22.9662C2.82058 23.0828 2.35966 22.8914 2.1337 22.4995C1.91001 22.1115 1.97175 21.6227 2.28337 21.3026Z"
-                            fill="currentColor"
-                          />
-                        </svg>
-                        1
-                      </span>
-                      <span class="review-card__stat review-card__stat--push">
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="1.6"
-                        >
-                          <path
-                            d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"
-                          />
-                          <circle cx="12" cy="12" r="3" />
-                        </svg>
-                        101
-                      </span>
-                    </footer>
-                  </article>
-
-                  <article
-                    class="review-card"
-                    data-review-index="2"
-                    aria-roledescription="slide"
-                  >
-                    <header class="review-card__head">
-                      <div
-                        class="review-card__avatar"
-                        style="--avatar-bg: #f0f0f0; --avatar-fg: #757575"
-                      >
-                        МВ
-                      </div>
-                      <div class="review-card__who">
-                        <div class="review-card__name">Максим В.</div>
-                        <div class="review-card__meta">
-                          9 апреля 2026, сделка была 8 апреля 2026
-                        </div>
-                      </div>
-                      <div
-                        class="review-card__stars"
-                        aria-label="Оценка 5 из 5"
-                      >
-                        ★★★★★
-                      </div>
-                    </header>
-                    <p class="review-card__text">
-                      Всё чётко, по делу и без лишней суеты. Помогли быстро
-                      сузить выбор, согласовали просмотры и довели сделку до
-                      результата, который мы хотели. Рекомендую.
-                    </p>
-                    <footer class="review-card__foot">
-                      <span class="review-card__comments" aria-hidden="true">
-                        <svg
-                          width="18"
-                          height="18"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          aria-hidden="true"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M12.5 3C7.8056 3 4.00002 6.80558 4.00002 11.5C4.00002 13.3106 4.56503 14.9863 5.52839 16.3642C5.65702 16.5482 5.72 16.7701 5.70721 16.9942C5.67939 17.4813 5.61054 18.0464 5.4806 18.6961C5.34675 19.3654 5.17843 19.9417 4.99863 20.4321L8.84213 19.4072C9.04566 19.3529 9.26113 19.3643 9.45781 19.4397C10.401 19.8013 11.4262 20 12.5 20C17.1944 20 21 16.1944 21 11.5C21 6.80558 17.1944 3 12.5 3ZM2.28337 21.3026C2.28497 21.3008 2.28815 21.2973 2.2928 21.292C2.30653 21.2764 2.3331 21.2451 2.36973 21.1972C2.44292 21.1015 2.55663 20.939 2.68837 20.7019C2.95112 20.2289 3.28993 19.4515 3.51944 18.3039C3.60229 17.8896 3.65453 17.5251 3.6852 17.2072C2.61921 15.5638 2.00002 13.6029 2.00002 11.5C2.00002 5.70101 6.70103 1 12.5 1C18.299 1 23 5.70101 23 11.5C23 17.299 18.299 22 12.5 22C11.2942 22 10.1339 21.7963 9.05302 21.4208L3.25769 22.9662C2.82058 23.0828 2.35966 22.8914 2.1337 22.4995C1.91001 22.1115 1.97175 21.6227 2.28337 21.3026Z"
-                            fill="currentColor"
-                          />
-                        </svg>
-                        <span>1</span>
-                      </span>
-                    </footer>
-                  </article>
-
-                  <article
-                    class="review-card"
-                    data-review-index="3"
-                    aria-roledescription="slide"
-                  >
-                    <header class="review-card__head">
-                      <div
-                        class="review-card__avatar review-card__avatar--light"
-                        style="--avatar-bg: #cfcfcf; --avatar-fg: #fff"
-                      >
-                        Т
-                      </div>
-                      <div class="review-card__who review-card__who--grow">
-                        <div class="review-card__name">Татьяна Краус</div>
-                        <div class="review-card__meta">1 отзыв</div>
-                      </div>
-                      <button
-                        type="button"
-                        class="review-card__subscribe"
-                        disabled
-                      >
-                        Подписаться
-                      </button>
-                    </header>
-                    <div
-                      class="review-card__stars review-card__stars--block"
-                      aria-label="Оценка 5 из 5"
-                    >
-                      ★★★★★
-                    </div>
-                    <p class="review-card__text">
-                      Большое спасибо Евгению Александровичу Григорьеву и
-                      агентству «Этажи» за успешную продажу квартиры: грамотная
-                      оценка объекта, понятная стратегия и сопровождение на
-                      каждом шаге.
-                    </p>
-                  </article>
-
-                  <article
-                    class="review-card"
-                    data-review-index="4"
-                    aria-roledescription="slide"
-                  >
-                    <header class="review-card__head">
-                      <div
-                        class="review-card__avatar"
-                        style="--avatar-bg: #e8eef5; --avatar-fg: #3d5a80"
-                      >
-                        АД
-                      </div>
-                      <div class="review-card__who">
-                        <div class="review-card__name">Алексей Друскевич</div>
-                      </div>
-                    </header>
-                    <div class="review-card__rating-row">
-                      <div
-                        class="review-card__stars review-card__stars--inline"
-                      >
-                        ★★★★★
-                      </div>
-                      <time class="review-card__date" datetime="2020-11-15"
-                        >15.11.2020</time
-                      >
-                    </div>
-                    <p class="review-card__text">
-                      Обратился за помощью в подборе квартиры — получил
-                      спокойный, структурный подход и помощь до финального
-                      оформления. Отдельное спасибо за терпение и честные
-                      рекомендации без навязывания.
-                    </p>
-                    <footer class="review-card__foot">
-                      <span class="review-card__comments" aria-hidden="true">
-                        <svg
-                          width="18"
-                          height="18"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          aria-hidden="true"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M12.5 3C7.8056 3 4.00002 6.80558 4.00002 11.5C4.00002 13.3106 4.56503 14.9863 5.52839 16.3642C5.65702 16.5482 5.72 16.7701 5.70721 16.9942C5.67939 17.4813 5.61054 18.0464 5.4806 18.6961C5.34675 19.3654 5.17843 19.9417 4.99863 20.4321L8.84213 19.4072C9.04566 19.3529 9.26113 19.3643 9.45781 19.4397C10.401 19.8013 11.4262 20 12.5 20C17.1944 20 21 16.1944 21 11.5C21 6.80558 17.1944 3 12.5 3ZM2.28337 21.3026C2.28497 21.3008 2.28815 21.2973 2.2928 21.292C2.30653 21.2764 2.3331 21.2451 2.36973 21.1972C2.44292 21.1015 2.55663 20.939 2.68837 20.7019C2.95112 20.2289 3.28993 19.4515 3.51944 18.3039C3.60229 17.8896 3.65453 17.5251 3.6852 17.2072C2.61921 15.5638 2.00002 13.6029 2.00002 11.5C2.00002 5.70101 6.70103 1 12.5 1C18.299 1 23 5.70101 23 11.5C23 17.299 18.299 22 12.5 22C11.2942 22 10.1339 21.7963 9.05302 21.4208L3.25769 22.9662C2.82058 23.0828 2.35966 22.8914 2.1337 22.4995C1.91001 22.1115 1.97175 21.6227 2.28337 21.3026Z"
-                            fill="currentColor"
-                          />
-                        </svg>
-                        <span>1</span>
-                      </span>
-                    </footer>
-                  </article>
-                </div>
-              </div>
-              <button
-                type="button"
-                class="reviews__arrow reviews__arrow--prev"
-                aria-label="Предыдущий отзыв"
-                data-reviews-prev
-              >
-                <svg
-                  width="20"
-                  height="36"
-                  viewBox="0 0 20 36"
-                  aria-hidden="true"
-                >
-                  <path
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    d="M14 4 4 18l10 14"
-                  />
-                </svg>
-              </button>
-              <button
-                type="button"
-                class="reviews__arrow reviews__arrow--next"
-                aria-label="Следующий отзыв"
-                data-reviews-next
-              >
-                <svg
-                  width="20"
-                  height="36"
-                  viewBox="0 0 20 36"
-                  aria-hidden="true"
-                >
-                  <path
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    d="M6 4l10 14-10 14"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
+          <button class="submit" type="submit">
+            <span>Отправить заявку</span>
+            <span aria-hidden="true">→</span>
+          </button>
+        </form>
       </div>
-    </section>
+
+      <section class="benefits" aria-label="Преимущества">
+        <div class="benefits__grid">
+          <div class="benefit">
+            <div class="benefit__top">
+              <span class="benefit__icon" aria-hidden="true">
+                <img
+                  src="assets/icons/benefit-01-target.svg"
+                  width="22"
+                  height="22"
+                  alt=""
+                />
+              </span>
+              <span class="benefit__num" aria-hidden="true">01</span>
+            </div>
+            <div class="benefit__text">Только актуальные<br />объекты</div>
+          </div>
+
+          <div class="benefit">
+            <div class="benefit__top">
+              <span class="benefit__icon" aria-hidden="true">
+                <img
+                  src="assets/icons/benefit-02-award.svg"
+                  width="22"
+                  height="22"
+                  alt=""
+                />
+              </span>
+              <span class="benefit__num" aria-hidden="true">02</span>
+            </div>
+            <div class="benefit__text">
+              Помощь<br />в одобрении<br />ипотеки
+            </div>
+          </div>
+
+          <div class="benefit">
+            <div class="benefit__top">
+              <span class="benefit__icon" aria-hidden="true">
+                <img
+                  src="assets/icons/benefit-03-handshake.svg"
+                  width="22"
+                  height="22"
+                  alt=""
+                />
+              </span>
+              <span class="benefit__num" aria-hidden="true">03</span>
+            </div>
+            <div class="benefit__text">
+              Полное<br />сопровождение<br />сделки
+            </div>
+          </div>
+
+          <div class="benefit">
+            <div class="benefit__top">
+              <span class="benefit__icon" aria-hidden="true">
+                <img
+                  src="assets/icons/benefit-04-clock.svg"
+                  width="22"
+                  height="22"
+                  alt=""
+                />
+              </span>
+              <span class="benefit__num" aria-hidden="true">04</span>
+            </div>
+            <div class="benefit__text">
+              Экономим<br />ваше время<br />и деньги
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="reviews" aria-labelledby="reviews-heading">
+        <div class="reviews__shell">
+          <div
+            class="reviews__bg"
+            style="
+              background-image: url(&quot;assets/reviews/bg-buildings.png&quot;);
+            "
+            aria-hidden="true"
+          ></div>
+          <div class="reviews__overlay" aria-hidden="true"></div>
+
+          <div class="reviews__content">
+            <h2 id="reviews-heading" class="reviews__heading">
+              Отзывы тех, кто уже совершил выгодную сделку с моей помощью
+            </h2>
+
+            <div class="reviews__carousel" data-reviews-carousel>
+              <div class="reviews__stage">
+                <div
+                  class="reviews__viewport"
+                  id="reviews-viewport"
+                  data-reviews-viewport
+                  tabindex="0"
+                  role="region"
+                  aria-roledescription="carousel"
+                  aria-label="Отзывы клиентов"
+                >
+                  <div class="reviews__track" data-reviews-track>
+                    <article
+                      class="review-card"
+                      data-review-index="0"
+                      aria-roledescription="slide"
+                    >
+                      <header class="review-card__head">
+                        <div
+                          class="review-card__avatar"
+                          style="--avatar-bg: #e8e8e8; --avatar-fg: #5c5c5c"
+                        >
+                          ЛХ
+                        </div>
+                        <div class="review-card__who">
+                          <div class="review-card__name">Лидия Х.</div>
+                          <div class="review-card__meta">
+                            21 февраля 2026, сделка была 17 февраля 2026
+                          </div>
+                        </div>
+                        <div
+                          class="review-card__stars"
+                          aria-label="Оценка 5 из 5"
+                        >
+                          ★★★★★
+                        </div>
+                      </header>
+                      <p class="review-card__text">
+                        Не навязывается, да — да, нет — нет. Не уговаривает,
+                        если квартира не понравится. Искал лучшие варианты,
+                        учитывал вид с окон. Помогает сделать сделку как можно
+                        дешевле. На протяжении всей мороки на связи, и даже
+                        после совершения сделки отвечает на все возникшие
+                        вопросы.
+                      </p>
+                      <footer class="review-card__foot">
+                        <span class="review-card__comments" aria-hidden="true">
+                          <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M12.5 3C7.8056 3 4.00002 6.80558 4.00002 11.5C4.00002 13.3106 4.56503 14.9863 5.52839 16.3642C5.65702 16.5482 5.72 16.7701 5.70721 16.9942C5.67939 17.4813 5.61054 18.0464 5.4806 18.6961C5.34675 19.3654 5.17843 19.9417 4.99863 20.4321L8.84213 19.4072C9.04566 19.3529 9.26113 19.3643 9.45781 19.4397C10.401 19.8013 11.4262 20 12.5 20C17.1944 20 21 16.1944 21 11.5C21 6.80558 17.1944 3 12.5 3ZM2.28337 21.3026C2.28497 21.3008 2.28815 21.2973 2.2928 21.292C2.30653 21.2764 2.3331 21.2451 2.36973 21.1972C2.44292 21.1015 2.55663 20.939 2.68837 20.7019C2.95112 20.2289 3.28993 19.4515 3.51944 18.3039C3.60229 17.8896 3.65453 17.5251 3.6852 17.2072C2.61921 15.5638 2.00002 13.6029 2.00002 11.5C2.00002 5.70101 6.70103 1 12.5 1C18.299 1 23 5.70101 23 11.5C23 17.299 18.299 22 12.5 22C11.2942 22 10.1339 21.7963 9.05302 21.4208L3.25769 22.9662C2.82058 23.0828 2.35966 22.8914 2.1337 22.4995C1.91001 22.1115 1.97175 21.6227 2.28337 21.3026Z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                          <span>1</span>
+                        </span>
+                      </footer>
+                    </article>
+
+                    <article
+                      class="review-card"
+                      data-review-index="1"
+                      aria-roledescription="slide"
+                    >
+                      <header class="review-card__head">
+                        <div
+                          class="review-card__avatar review-card__avatar--light"
+                          style="--avatar-bg: #d0d0d0; --avatar-fg: #fff"
+                        >
+                          Е
+                        </div>
+                        <div class="review-card__who">
+                          <div class="review-card__name">Елена Русакова</div>
+                          <div class="review-card__meta">4 отзыва</div>
+                        </div>
+                      </header>
+                      <div class="review-card__rating-row">
+                        <div
+                          class="review-card__stars review-card__stars--inline"
+                        >
+                          ★★★★★
+                        </div>
+                        <time class="review-card__date" datetime="2025-03-30"
+                          >30 марта 2025</time
+                        >
+                      </div>
+                      <p class="review-card__text">
+                        Огромная благодарность специалисту Евгению Григорьеву за
+                        оперативную и профессиональную помощь в покупке
+                        квартиры. Всё прошло быстро и спокойно. ❤️
+                      </p>
+                      <footer class="review-card__foot review-card__foot--rich">
+                        <button
+                          type="button"
+                          class="review-card__chip"
+                          disabled
+                        >
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.6"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3z"
+                            />
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+                            />
+                          </svg>
+                          Полезно
+                        </button>
+                        <span class="review-card__stat">
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M12.5 3C7.8056 3 4.00002 6.80558 4.00002 11.5C4.00002 13.3106 4.56503 14.9863 5.52839 16.3642C5.65702 16.5482 5.72 16.7701 5.70721 16.9942C5.67939 17.4813 5.61054 18.0464 5.4806 18.6961C5.34675 19.3654 5.17843 19.9417 4.99863 20.4321L8.84213 19.4072C9.04566 19.3529 9.26113 19.3643 9.45781 19.4397C10.401 19.8013 11.4262 20 12.5 20C17.1944 20 21 16.1944 21 11.5C21 6.80558 17.1944 3 12.5 3ZM2.28337 21.3026C2.28497 21.3008 2.28815 21.2973 2.2928 21.292C2.30653 21.2764 2.3331 21.2451 2.36973 21.1972C2.44292 21.1015 2.55663 20.939 2.68837 20.7019C2.95112 20.2289 3.28993 19.4515 3.51944 18.3039C3.60229 17.8896 3.65453 17.5251 3.6852 17.2072C2.61921 15.5638 2.00002 13.6029 2.00002 11.5C2.00002 5.70101 6.70103 1 12.5 1C18.299 1 23 5.70101 23 11.5C23 17.299 18.299 22 12.5 22C11.2942 22 10.1339 21.7963 9.05302 21.4208L3.25769 22.9662C2.82058 23.0828 2.35966 22.8914 2.1337 22.4995C1.91001 22.1115 1.97175 21.6227 2.28337 21.3026Z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                          1
+                        </span>
+                        <span class="review-card__stat review-card__stat--push">
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.6"
+                          >
+                            <path
+                              d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                          101
+                        </span>
+                      </footer>
+                    </article>
+
+                    <article
+                      class="review-card"
+                      data-review-index="2"
+                      aria-roledescription="slide"
+                    >
+                      <header class="review-card__head">
+                        <div
+                          class="review-card__avatar"
+                          style="--avatar-bg: #f0f0f0; --avatar-fg: #757575"
+                        >
+                          МВ
+                        </div>
+                        <div class="review-card__who">
+                          <div class="review-card__name">Максим В.</div>
+                          <div class="review-card__meta">
+                            9 апреля 2026, сделка была 8 апреля 2026
+                          </div>
+                        </div>
+                        <div
+                          class="review-card__stars"
+                          aria-label="Оценка 5 из 5"
+                        >
+                          ★★★★★
+                        </div>
+                      </header>
+                      <p class="review-card__text">
+                        Всё чётко, по делу и без лишней суеты. Помогли быстро
+                        сузить выбор, согласовали просмотры и довели сделку до
+                        результата, который мы хотели. Рекомендую.
+                      </p>
+                      <footer class="review-card__foot">
+                        <span class="review-card__comments" aria-hidden="true">
+                          <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M12.5 3C7.8056 3 4.00002 6.80558 4.00002 11.5C4.00002 13.3106 4.56503 14.9863 5.52839 16.3642C5.65702 16.5482 5.72 16.7701 5.70721 16.9942C5.67939 17.4813 5.61054 18.0464 5.4806 18.6961C5.34675 19.3654 5.17843 19.9417 4.99863 20.4321L8.84213 19.4072C9.04566 19.3529 9.26113 19.3643 9.45781 19.4397C10.401 19.8013 11.4262 20 12.5 20C17.1944 20 21 16.1944 21 11.5C21 6.80558 17.1944 3 12.5 3ZM2.28337 21.3026C2.28497 21.3008 2.28815 21.2973 2.2928 21.292C2.30653 21.2764 2.3331 21.2451 2.36973 21.1972C2.44292 21.1015 2.55663 20.939 2.68837 20.7019C2.95112 20.2289 3.28993 19.4515 3.51944 18.3039C3.60229 17.8896 3.65453 17.5251 3.6852 17.2072C2.61921 15.5638 2.00002 13.6029 2.00002 11.5C2.00002 5.70101 6.70103 1 12.5 1C18.299 1 23 5.70101 23 11.5C23 17.299 18.299 22 12.5 22C11.2942 22 10.1339 21.7963 9.05302 21.4208L3.25769 22.9662C2.82058 23.0828 2.35966 22.8914 2.1337 22.4995C1.91001 22.1115 1.97175 21.6227 2.28337 21.3026Z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                          <span>1</span>
+                        </span>
+                      </footer>
+                    </article>
+
+                    <article
+                      class="review-card"
+                      data-review-index="3"
+                      aria-roledescription="slide"
+                    >
+                      <header class="review-card__head">
+                        <div
+                          class="review-card__avatar review-card__avatar--light"
+                          style="--avatar-bg: #cfcfcf; --avatar-fg: #fff"
+                        >
+                          Т
+                        </div>
+                        <div class="review-card__who review-card__who--grow">
+                          <div class="review-card__name">Татьяна Краус</div>
+                          <div class="review-card__meta">1 отзыв</div>
+                        </div>
+                        <button
+                          type="button"
+                          class="review-card__subscribe"
+                          disabled
+                        >
+                          Подписаться
+                        </button>
+                      </header>
+                      <div
+                        class="review-card__stars review-card__stars--block"
+                        aria-label="Оценка 5 из 5"
+                      >
+                        ★★★★★
+                      </div>
+                      <p class="review-card__text">
+                        Большое спасибо Евгению Александровичу Григорьеву и
+                        агентству «Этажи» за успешную продажу квартиры:
+                        грамотная оценка объекта, понятная стратегия и
+                        сопровождение на каждом шаге.
+                      </p>
+                    </article>
+
+                    <article
+                      class="review-card"
+                      data-review-index="4"
+                      aria-roledescription="slide"
+                    >
+                      <header class="review-card__head">
+                        <div
+                          class="review-card__avatar"
+                          style="--avatar-bg: #e8eef5; --avatar-fg: #3d5a80"
+                        >
+                          АД
+                        </div>
+                        <div class="review-card__who">
+                          <div class="review-card__name">Алексей Друскевич</div>
+                        </div>
+                      </header>
+                      <div class="review-card__rating-row">
+                        <div
+                          class="review-card__stars review-card__stars--inline"
+                        >
+                          ★★★★★
+                        </div>
+                        <time class="review-card__date" datetime="2020-11-15"
+                          >15.11.2020</time
+                        >
+                      </div>
+                      <p class="review-card__text">
+                        Обратился за помощью в подборе квартиры — получил
+                        спокойный, структурный подход и помощь до финального
+                        оформления. Отдельное спасибо за терпение и честные
+                        рекомендации без навязывания.
+                      </p>
+                      <footer class="review-card__foot">
+                        <span class="review-card__comments" aria-hidden="true">
+                          <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M12.5 3C7.8056 3 4.00002 6.80558 4.00002 11.5C4.00002 13.3106 4.56503 14.9863 5.52839 16.3642C5.65702 16.5482 5.72 16.7701 5.70721 16.9942C5.67939 17.4813 5.61054 18.0464 5.4806 18.6961C5.34675 19.3654 5.17843 19.9417 4.99863 20.4321L8.84213 19.4072C9.04566 19.3529 9.26113 19.3643 9.45781 19.4397C10.401 19.8013 11.4262 20 12.5 20C17.1944 20 21 16.1944 21 11.5C21 6.80558 17.1944 3 12.5 3ZM2.28337 21.3026C2.28497 21.3008 2.28815 21.2973 2.2928 21.292C2.30653 21.2764 2.3331 21.2451 2.36973 21.1972C2.44292 21.1015 2.55663 20.939 2.68837 20.7019C2.95112 20.2289 3.28993 19.4515 3.51944 18.3039C3.60229 17.8896 3.65453 17.5251 3.6852 17.2072C2.61921 15.5638 2.00002 13.6029 2.00002 11.5C2.00002 5.70101 6.70103 1 12.5 1C18.299 1 23 5.70101 23 11.5C23 17.299 18.299 22 12.5 22C11.2942 22 10.1339 21.7963 9.05302 21.4208L3.25769 22.9662C2.82058 23.0828 2.35966 22.8914 2.1337 22.4995C1.91001 22.1115 1.97175 21.6227 2.28337 21.3026Z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                          <span>1</span>
+                        </span>
+                      </footer>
+                    </article>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="reviews__arrow reviews__arrow--prev"
+                  aria-label="Предыдущий отзыв"
+                  data-reviews-prev
+                >
+                  <svg
+                    width="20"
+                    height="36"
+                    viewBox="0 0 20 36"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      d="M14 4 4 18l10 14"
+                    />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  class="reviews__arrow reviews__arrow--next"
+                  aria-label="Следующий отзыв"
+                  data-reviews-next
+                >
+                  <svg
+                    width="20"
+                    height="36"
+                    viewBox="0 0 20 36"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      d="M6 4l10 14-10 14"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="contacts">
+        <p>Мои контакты</p>
+        <div class="contacts__links">
+          <a
+            href="https://www.instagram.com/griga.www?igsh=MWxxYXZmc2V1cG5lMA%3D%3D&utm_source=qr"
+            target="_blank"
+            rel="noopener"
+            aria-label="Instagram"
+          >
+            <span class="contacts__badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+                <circle cx="12" cy="12" r="4.2" />
+                <circle cx="17.2" cy="6.8" r="1.1" fill="#fff" stroke="none" />
+              </svg>
+            </span>
+            <small>Instagram</small>
+          </a>
+          <a
+            href="https://t.me/grigakrsk"
+            target="_blank"
+            rel="noopener"
+            aria-label="Telegram"
+          >
+            <span class="contacts__badge" aria-hidden="true">
+              <svg
+                class="contacts__logo-svg"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  fill="#fff"
+                  d="M9.993 17.854 10.129 14.2l6.916-6.228c.262-.238-.057-.366-.403-.146l-8.404 5.453-3.624-1.13c-.79-.245-.805-.79.172-1.176l14.053-5.422c.656-.247 1.233.153 1.007.958l-2.389 11.222c-.175.786-.647 1.002-1.321.621l-3.646-2.686-1.762 1.728c-.196.197-.362.362-.736.362Z"
+                />
+              </svg>
+            </span>
+            <small>Telegram</small>
+          </a>
+          <a
+            href="https://max.ru/u/f9LHodD0cOIeSf3kQvcfBIMm-kTfbRgroxOXZER1LPH009gkMyATjc9xUJU"
+            target="_blank"
+            rel="noopener"
+            aria-label="MAX"
+          >
+            <span class="contacts__badge" aria-hidden="true">
+              <img
+                class="contacts__logo"
+                src="assets/icons/social/max-logo.svg"
+                alt=""
+              />
+            </span>
+            <small>MAX</small>
+          </a>
+        </div>
+      </footer>
+    </main>
+
+    <div class="toast" role="status" aria-live="polite"></div>
 
     <script>
-      const data = {
+      const FORM_ENDPOINT = "https://formspree.io/f/meeyjgnz";
+      // Публичный site key из https://www.google.com/recaptcha/admin (reCAPTCHA v3).
+      // Secret key вставьте в Formspree → Settings → Custom reCAPTCHA Key.
+      const RECAPTCHA_SITE_KEY = "6LdP2E8tAAAAABCb-pV_mClOUeKCrU_We1y2hndN";
+
+      if (RECAPTCHA_SITE_KEY) {
+        const recaptchaScript = document.createElement("script");
+        recaptchaScript.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+        recaptchaScript.async = true;
+        document.head.appendChild(recaptchaScript);
+      }
+
+      function getRecaptchaToken() {
+        if (!RECAPTCHA_SITE_KEY) return Promise.resolve(null);
+        return new Promise((resolve, reject) => {
+          if (typeof grecaptcha === "undefined") {
+            reject(new Error("recaptcha-not-loaded"));
+            return;
+          }
+          grecaptcha.ready(() => {
+            grecaptcha
+              .execute(RECAPTCHA_SITE_KEY, { action: "submit" })
+              .then(resolve)
+              .catch(reject);
+          });
+        });
+      }
+
+      const selections = {
         city: "Красноярск",
         type: "Квартира",
         budget: "До 5 млн ₽",
       };
 
-      function pickPill(btn, key) {
-        const row = btn.closest("[data-group]");
-        row
-          .querySelectorAll(".pill")
-          .forEach((b) => b.classList.remove("pill--active"));
-        btn.classList.add("pill--active");
-        data[key] = btn.dataset.value || btn.textContent.trim();
-      }
-
-      function pickCard(btn, key) {
-        const row = btn.closest("[data-group]");
-        row
-          .querySelectorAll(".card")
-          .forEach((b) => b.classList.remove("card--active"));
-        btn.classList.add("card--active");
-        data[key] = btn.dataset.value || btn.textContent.trim();
-      }
-
-      function normalizePhone(raw) {
-        const digits = (raw || "").replace(/\D/g, "");
-        // принимает ввод как "9xxxxxxxxx" или "7xxxxxxxxxx"
-        if (digits.length === 11 && digits.startsWith("7")) return `+${digits}`;
-        if (digits.length === 10) return `+7${digits}`;
-        if (digits.length > 0 && digits.startsWith("8") && digits.length === 11)
-          return `+7${digits.slice(1)}`;
-        return raw.trim();
-      }
-
-      function formatRuPhoneLocal(raw) {
-        let d = (raw || "").replace(/\D/g, "");
-        // если вставили целиком +7 / 8 / 7XXXXXXXXXX — выкидываем префикс и оставляем 10 цифр
-        if (d.length >= 11 && (d.startsWith("7") || d.startsWith("8")))
-          d = d.slice(1);
-        d = d.slice(0, 10);
-
-        const a = d.slice(0, 3);
-        const b = d.slice(3, 6);
-        const c = d.slice(6, 8);
-        const e = d.slice(8, 10);
-
-        if (d.length === 0) return "";
-        if (d.length <= 3) return `(${a}`;
-        if (d.length <= 6) return `(${a}) ${b}`;
-        if (d.length <= 8) return `(${a}) ${b}-${c}`;
-        return `(${a}) ${b}-${c}-${e}`;
-      }
-
-      const phoneEl = document.getElementById("phone");
-      if (phoneEl) {
-        phoneEl.addEventListener("input", () => {
-          const next = formatRuPhoneLocal(phoneEl.value);
-          phoneEl.value = next;
+      document.querySelectorAll("[data-group]").forEach((group) => {
+        group.addEventListener("click", (event) => {
+          const button = event.target.closest("button[data-value]");
+          if (!button) return;
+          group
+            .querySelectorAll("button")
+            .forEach((item) => item.classList.remove("is-active"));
+          button.classList.add("is-active");
+          selections[group.dataset.group] = button.dataset.value;
         });
+      });
 
-        phoneEl.addEventListener("paste", (ev) => {
-          // гарантируем, что после вставки сразу применится формат
-          requestAnimationFrame(() => {
-            phoneEl.value = formatRuPhoneLocal(phoneEl.value);
-          });
-        });
-      }
+      const phone = document.querySelector("#phone");
+      phone.addEventListener("input", () => {
+        let digits = phone.value.replace(/\D/g, "");
+        if (digits.length > 10 && /^[78]/.test(digits))
+          digits = digits.slice(1);
+        digits = digits.slice(0, 10);
+        const parts = [
+          digits.slice(0, 3),
+          digits.slice(3, 6),
+          digits.slice(6, 8),
+          digits.slice(8, 10),
+        ];
+        phone.value = !digits
+          ? ""
+          : `(${parts[0]}${digits.length > 3 ? `) ${parts[1]}` : ""}${digits.length > 6 ? `-${parts[2]}` : ""}${digits.length > 8 ? `-${parts[3]}` : ""}`;
+      });
 
-      function send(e) {
-        if (e) e.preventDefault();
+      document
+        .querySelector("#quiz-form")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const form = event.currentTarget;
+          if (!form.reportValidity()) return;
+          const submit = form.querySelector(".submit");
+          const toast = document.querySelector(".toast");
+          submit.disabled = true;
+          submit.firstElementChild.textContent = "Отправляем...";
 
-        const name = document.getElementById("name").value.trim();
-        const phone = normalizePhone(document.getElementById("phone").value);
+          const payload = new FormData();
+          payload.set("_subject", "Новая заявка с сайта — подбор квартиры");
+          payload.set("Имя", form.querySelector("#name").value.trim());
+          payload.set("Телефон", `+7 ${phone.value}`);
+          payload.set("Город", selections.city);
+          payload.set("Что ищут", selections.type);
+          payload.set("Бюджет", selections.budget);
 
-        if (!name || !phone) {
-          alert("Заполните все поля");
-          return false;
-        }
-
-        const formData = new FormData();
-        formData.append("name", name);
-        formData.append("phone", phone);
-        formData.append("city", data.city || "");
-        formData.append("type", data.type || "");
-        formData.append("budget", data.budget || "");
-
-        fetch("https://formspree.io/f/mnjolzzv", {
-          method: "POST",
-          body: formData,
-          headers: { Accept: "application/json" },
-        })
-          .then((res) => {
-            if (res.ok) {
-              document.querySelector(".reviews")?.remove();
-              document.querySelector(".container").innerHTML =
-                document.getElementById("success-template").innerHTML;
-            } else {
-              alert("Ошибка. Попробуйте без VPN");
+          try {
+            const recaptchaToken = await getRecaptchaToken();
+            if (recaptchaToken) {
+              payload.set("g-recaptcha-response", recaptchaToken);
             }
-          })
-          .catch(() => {
-            alert("Ошибка сети");
-          });
 
-        return false;
-      }
+            const response = await fetch(FORM_ENDPOINT, {
+              method: "POST",
+              body: payload,
+              headers: { Accept: "application/json" },
+            });
 
-      function goTG() {
-        window.location.href = "https://t.me/grigakrsk";
-      }
+            const result = await response.json().catch(() => ({}));
+            if (!response.ok) {
+              throw new Error(result.error || "submit failed");
+            }
 
-      /**
-       * Инициализирует блок отзывов: на ширине ≥768px — трёхкарточная карусель с
-       * переключением по стрелкам; на мобиле — горизонтальный скролл и те же стрелки.
-       * @returns {void}
-       */
+            form.reset();
+            toast.textContent = "Спасибо! Заявка отправлена";
+            toast.classList.add("is-visible");
+          } catch (error) {
+            if (!RECAPTCHA_SITE_KEY) {
+              toast.textContent =
+                "Добавьте RECAPTCHA_SITE_KEY в код или отключите captcha в Formspree";
+            } else {
+              toast.textContent = "Не удалось отправить. Попробуйте ещё раз";
+            }
+            toast.classList.add("is-visible");
+          } finally {
+            submit.disabled = false;
+            submit.firstElementChild.textContent = "Отправить заявку";
+            window.setTimeout(() => toast.classList.remove("is-visible"), 3500);
+          }
+        });
+
       function initReviewsCarousel() {
         const root = document.querySelector("[data-reviews-carousel]");
         if (!root) return;
@@ -818,27 +906,19 @@
 
         let active = 0;
 
-        /**
-         * Нормализует индекс по длине списка.
-         * @param {number} i — индекс
-         * @returns {number} индекс в диапазоне [0, total)
-         */
         function mod(i) {
           return ((i % total) + total) % total;
         }
 
-        /**
-         * Проверяет мобильную вёрстку по ширине окна.
-         * @returns {boolean}
-         */
         function isMobileMode() {
-          return window.matchMedia("(max-width: 767px)").matches;
+          const page = document.querySelector(".page");
+          return (
+            window.matchMedia("(max-width: 767px)").matches ||
+            !page ||
+            page.offsetWidth <= 560
+          );
         }
 
-        /**
-         * Выставляет классы позиционирования карточек для десктопной карусели.
-         * @returns {void}
-         */
         function applyDesktopClasses() {
           const leftI = mod(active - 1);
           const rightI = mod(active + 1);
@@ -856,46 +936,30 @@
           });
         }
 
-        /**
-         * Прокручивает слайдер к активной карточке (мобильный режим).
-         * @returns {void}
-         */
         function scrollToActiveMobile() {
           const card = cards[active];
           if (!card) return;
           const target =
             card.offsetLeft - (viewport.clientWidth - card.offsetWidth) / 2;
-          viewport.scrollTo({
-            left: Math.max(0, target),
-            behavior: "smooth",
-          });
+          viewport.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
         }
 
-        /**
-         * Синхронизирует отображение с текущим режимом и индексом.
-         * @returns {void}
-         */
         function sync() {
           if (isMobileMode()) {
-            cards.forEach((el) => {
+            cards.forEach((el) =>
               el.classList.remove(
                 "review-card--left",
                 "review-card--center",
                 "review-card--right",
                 "review-card--hidden",
-              );
-            });
+              ),
+            );
             scrollToActiveMobile();
           } else {
             applyDesktopClasses();
           }
         }
 
-        /**
-         * Переключает на соседний отзыв.
-         * @param {number} delta — −1 или +1
-         * @returns {void}
-         */
         function step(delta) {
           active = mod(active + delta);
           sync();
@@ -916,8 +980,7 @@
               let best = 0;
               let bestDist = Infinity;
               cards.forEach((c, i) => {
-                const cr = c.getBoundingClientRect();
-                const cx = cr.left + cr.width / 2;
+                const cx = c.getBoundingClientRect().left + c.offsetWidth / 2;
                 const d = Math.abs(cx - mid);
                 if (d < bestDist) {
                   bestDist = d;

@@ -267,7 +267,23 @@
           </section>
 
           <div class="form-actions">
-            <div class="recaptcha-wrap" id="recaptcha-container"></div>
+            <p class="recaptcha-notice">
+              Защита от спама reCAPTCHA v3. Применяются
+              <a
+                href="https://policies.google.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                >политика конфиденциальности</a
+              >
+              и
+              <a
+                href="https://policies.google.com/terms"
+                target="_blank"
+                rel="noopener noreferrer"
+                >условия использования</a
+              >
+              Google.
+            </p>
             <button class="submit" type="submit">
               <span>Отправить заявку</span>
               <span aria-hidden="true">→</span>
@@ -779,50 +795,58 @@
 
     <script>
       const FORM_ENDPOINT = "https://formspree.io/f/meeyjgnz";
-      // Site key reCAPTCHA v2 (checkbox) из https://www.google.com/recaptcha/admin
-      // Secret key — в Formspree → Settings → Custom reCAPTCHA Key
+      // reCAPTCHA v3: Site key здесь, Secret key — в Formspree → Custom reCAPTCHA Key
       const RECAPTCHA_SITE_KEY = "6LdP2E8tAAAAABCb-pV_mClOUeKCrU_We1y2hndN";
 
-      let recaptchaWidgetId = null;
+      const recaptchaReady = (() => {
+        if (!RECAPTCHA_SITE_KEY) return Promise.resolve();
 
-      window.onRecaptchaLoad = () => {
-        const container = document.getElementById("recaptcha-container");
-        if (!RECAPTCHA_SITE_KEY || !container || recaptchaWidgetId !== null) {
-          return;
-        }
-        recaptchaWidgetId = grecaptcha.render(container, {
-          sitekey: RECAPTCHA_SITE_KEY,
+        return new Promise((resolve, reject) => {
+          if (typeof grecaptcha !== "undefined") {
+            grecaptcha.ready(resolve);
+            return;
+          }
+
+          const script = document.createElement("script");
+          script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+          script.async = true;
+          script.defer = true;
+          script.onload = () => grecaptcha.ready(resolve);
+          script.onerror = () =>
+            reject(new Error("Не удалось загрузить reCAPTCHA"));
+          document.head.appendChild(script);
         });
-      };
+      })();
 
-      if (RECAPTCHA_SITE_KEY) {
-        const recaptchaScript = document.createElement("script");
-        recaptchaScript.src =
-          "https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit";
-        recaptchaScript.async = true;
-        recaptchaScript.defer = true;
-        document.head.appendChild(recaptchaScript);
-      }
+      async function getRecaptchaToken() {
+        if (!RECAPTCHA_SITE_KEY) return null;
 
-      function getRecaptchaToken() {
-        if (!RECAPTCHA_SITE_KEY || recaptchaWidgetId === null) return null;
-        const token = grecaptcha.getResponse(recaptchaWidgetId);
-        return token || null;
-      }
+        await recaptchaReady;
 
-      function resetRecaptcha() {
-        if (recaptchaWidgetId !== null) {
-          grecaptcha.reset(recaptchaWidgetId);
+        let lastError;
+        for (let attempt = 0; attempt < 3; attempt += 1) {
+          try {
+            return await new Promise((resolve, reject) => {
+              grecaptcha.ready(() => {
+                grecaptcha
+                  .execute(RECAPTCHA_SITE_KEY, { action: "submit" })
+                  .then(resolve)
+                  .catch(reject);
+              });
+            });
+          } catch (error) {
+            lastError = error;
+            await new Promise((resolve) => setTimeout(resolve, 400));
+          }
         }
+
+        throw lastError;
       }
 
       function getRecaptchaHelpMessage(errorText) {
         if (!errorText) return "Не удалось отправить. Попробуйте ещё раз";
-        if (errorText === "captcha-required") {
-          return "Подтвердите, что вы не робот";
-        }
         if (errorText.includes("browser-error")) {
-          return "reCAPTCHA: добавьте домен сайта в Google reCAPTCHA (localhost и sayu47.github.io)";
+          return "reCAPTCHA: добавьте sayu47.github.io в домены Google reCAPTCHA";
         }
         return "Не удалось отправить. Попробуйте ещё раз";
       }
@@ -882,10 +906,7 @@
           payload.set("Бюджет", selections.budget);
 
           try {
-            const recaptchaToken = getRecaptchaToken();
-            if (RECAPTCHA_SITE_KEY && !recaptchaToken) {
-              throw new Error("captcha-required");
-            }
+            const recaptchaToken = await getRecaptchaToken();
             if (recaptchaToken) {
               payload.set("g-recaptcha-response", recaptchaToken);
             }
@@ -901,7 +922,6 @@
               throw new Error(result.error || "submit failed");
             }
             form.reset();
-            resetRecaptcha();
             toast.textContent = "Спасибо! Заявка отправлена";
             toast.classList.add("is-visible");
           } catch (error) {
@@ -911,12 +931,6 @@
                 : "Не удалось отправить. Попробуйте ещё раз";
             toast.textContent = message;
             toast.classList.add("is-visible");
-            if (
-              error instanceof Error &&
-              error.message !== "captcha-required"
-            ) {
-              resetRecaptcha();
-            }
           } finally {
             submit.disabled = false;
             submit.firstElementChild.textContent = "Отправить заявку";

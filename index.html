@@ -945,12 +945,7 @@
         }
 
         function isMobileMode() {
-          const page = document.querySelector(".page");
-          return (
-            window.matchMedia("(max-width: 767px)").matches ||
-            !page ||
-            page.offsetWidth <= 560
-          );
+          return window.matchMedia("(max-width: 767px)").matches;
         }
 
         function applyDesktopClasses() {
@@ -998,6 +993,8 @@
           active = mod(active + delta);
           sync();
         }
+
+        if (!prevBtn || !nextBtn) return;
 
         prevBtn.addEventListener("click", () => step(-1));
         nextBtn.addEventListener("click", () => step(1));

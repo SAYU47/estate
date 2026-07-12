@@ -1779,70 +1779,70 @@ body > .grecaptcha-badge {
   white-space: nowrap;
 }
 
-.page .reviews__viewport {
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: 0;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  container-type: inline-size;
-  container-name: reviews-view;
-}
-
-.page .reviews__viewport::-webkit-scrollbar {
-  display: none;
-}
-
-.page .reviews__track {
-  position: relative;
-  display: flex;
-  min-width: 100%;
-  min-height: 0;
-  gap: 0;
-  padding: 2px 0 8px;
-  perspective: none;
-  transform-style: flat;
-}
-
-.page .reviews__track .review-card {
-  position: relative;
-  left: auto;
-  top: auto;
-  flex: 0 0 100%;
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-  transform: none !important;
-  opacity: 1 !important;
-  filter: none !important;
-  pointer-events: auto;
-  scroll-snap-align: center;
-  scroll-snap-stop: always;
-}
-
-.page .reviews__arrow {
-  width: 25px;
-  height: 25px;
-}
-
-.page .reviews__arrow--prev {
-  left: -8px;
-}
-
-.page .reviews__arrow--next {
-  right: -8px;
-}
-
-.page .reviews__arrow svg {
-  width: 10px;
-  height: 18px;
-}
-
 @media (max-width: 767px) {
+  .page .reviews__viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    container-type: inline-size;
+    container-name: reviews-view;
+  }
+
+  .page .reviews__viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .page .reviews__track {
+    position: relative;
+    display: flex;
+    min-width: 100%;
+    min-height: 0;
+    gap: 0;
+    padding: 2px 0 8px;
+    perspective: none;
+    transform-style: flat;
+  }
+
+  .page .reviews__track .review-card {
+    position: relative;
+    left: auto;
+    top: auto;
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    pointer-events: auto;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+  }
+
+  .page .reviews__arrow {
+    width: 25px;
+    height: 25px;
+  }
+
+  .page .reviews__arrow--prev {
+    left: -8px;
+  }
+
+  .page .reviews__arrow--next {
+    right: -8px;
+  }
+
+  .page .reviews__arrow svg {
+    width: 10px;
+    height: 18px;
+  }
+
   .page .reviews__heading {
     font-size: clamp(17px, 4.5vw, 22px);
   }

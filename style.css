@@ -508,15 +508,21 @@ a {
 
 .recaptcha-notice {
   margin: 0;
+  padding: 0 6px;
   font-size: 9px;
-  line-height: 1.35;
-  color: #888;
+  line-height: 1.45;
+  color: #9a9a9a;
+  text-align: center;
 }
 
 .recaptcha-notice a {
-  color: inherit;
+  color: #7a7a7a;
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+
+.recaptcha-notice a:hover {
+  color: #555;
 }
 
 .grecaptcha-badge {
@@ -525,8 +531,8 @@ a {
 
 .form-actions {
   display: grid;
-  gap: 10px;
-  margin-top: -8px;
+  gap: 8px;
+  margin-top: 2px;
 }
 
 .submit {
@@ -1002,13 +1008,17 @@ a {
   }
 
   .recaptcha-notice {
-    font-size: 11px;
+    max-width: 520px;
+    margin-inline: auto;
+    font-size: 10px;
+    line-height: 1.5;
   }
 
   .form-actions {
-    gap: 12px;
-    margin-top: -4px;
+    gap: 10px;
+    margin-top: 4px;
     margin-left: 106px;
+    width: calc(100% - 106px);
   }
 
   .submit {

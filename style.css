@@ -274,20 +274,6 @@ a {
   transform-origin: center;
 }
 
-.decor--sparkles {
-  z-index: 2;
-  top: 3px;
-  right: 8px;
-  width: 34px;
-}
-
-.decor--field-sparkles {
-  z-index: 2;
-  top: 13px;
-  right: 8px;
-  width: 29px;
-}
-
 .quiz {
   display: grid;
   gap: 25px;

@@ -492,27 +492,13 @@ a {
   font-weight: 600;
 }
 
-.recaptcha-notice {
-  margin: 0;
-  padding: 0;
-  font-size: 8px;
-  line-height: 1.4;
-  color: #aaa;
-  text-align: center;
-}
-
-.recaptcha-notice a {
-  color: #999;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.recaptcha-notice a:hover {
-  color: #666;
-}
-
-.grecaptcha-badge {
-  visibility: hidden !important;
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .form-actions {
@@ -987,10 +973,6 @@ a {
   .input-wrap--phone .flag {
     left: 14px;
     font-size: 18px;
-  }
-
-  .recaptcha-notice {
-    font-size: 9px;
   }
 
   .form-actions {

@@ -30,14 +30,7 @@
       href="https://fonts.bunny.net/css?family=montserrat:400,500,600,700,800|caveat:500,600&display=swap"
       rel="stylesheet"
     />
-    <link rel="preconnect" href="https://www.recaptcha.net" />
-    <link rel="preconnect" href="https://www.gstatic.com" crossorigin />
     <link rel="stylesheet" href="style.css" />
-    <script
-      src="https://www.recaptcha.net/recaptcha/api.js?render=6LdP2E8tAAAAABCb-pV_mClOUeKCrU_We1y2hndN"
-      async
-      defer
-    ></script>
   </head>
   <body>
     <main class="page">
@@ -78,6 +71,14 @@
 
       <div class="layout">
         <form class="quiz" id="quiz-form">
+          <input
+            type="text"
+            name="_gotcha"
+            class="honeypot"
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+          />
           <section class="question">
             <img
               class="decor decor--building"
@@ -263,23 +264,6 @@
               <span>Отправить заявку</span>
               <span aria-hidden="true">→</span>
             </button>
-            <p class="recaptcha-notice">
-              Сайт защищён reCAPTCHA. Применяются
-              <a
-                href="https://policies.google.com/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Политика конфиденциальности</a
-              >
-              и
-              <a
-                href="https://policies.google.com/terms"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Условия использования</a
-              >
-              Google.
-            </p>
           </div>
         </form>
       </div>
@@ -787,65 +771,6 @@
 
     <script>
       const FORM_ENDPOINT = "https://formspree.io/f/mojgarrv";
-      // reCAPTCHA v3: Site key здесь, Secret key — в Formspree → Custom reCAPTCHA Key
-      const RECAPTCHA_SITE_KEY = "6LdP2E8tAAAAABCb-pV_mClOUeKCrU_We1y2hndN";
-
-      function waitForRecaptcha() {
-        if (!RECAPTCHA_SITE_KEY) return Promise.resolve();
-        return new Promise((resolve, reject) => {
-          const deadline = Date.now() + 15000;
-          const check = () => {
-            if (typeof grecaptcha !== "undefined") {
-              grecaptcha.ready(resolve);
-              return;
-            }
-            if (Date.now() > deadline) {
-              reject(new Error("Не удалось загрузить reCAPTCHA"));
-              return;
-            }
-            window.setTimeout(check, 100);
-          };
-          check();
-        });
-      }
-
-      async function getRecaptchaToken() {
-        if (!RECAPTCHA_SITE_KEY) return null;
-
-        await waitForRecaptcha();
-
-        let lastError;
-        for (let attempt = 0; attempt < 3; attempt += 1) {
-          try {
-            const token = await new Promise((resolve, reject) => {
-              grecaptcha.ready(() => {
-                grecaptcha
-                  .execute(RECAPTCHA_SITE_KEY, { action: "submit" })
-                  .then(resolve)
-                  .catch(reject);
-              });
-            });
-            if (token && token.length > 20) return token;
-            lastError = new Error("Пустой токен reCAPTCHA");
-          } catch (error) {
-            lastError = error;
-          }
-          await new Promise((resolve) => setTimeout(resolve, 500));
-        }
-
-        throw lastError;
-      }
-
-      function getRecaptchaHelpMessage(errorText) {
-        if (!errorText) return "Не удалось отправить. Попробуйте ещё раз";
-        if (errorText.includes("browser-error")) {
-          return "reCAPTCHA не загрузилась. Отключите блокировщик рекламы и попробуйте снова";
-        }
-        if (errorText.includes("Не удалось загрузить reCAPTCHA")) {
-          return "reCAPTCHA не загрузилась. Проверьте интернет и отключите блокировщик рекламы";
-        }
-        return "Не удалось отправить. Попробуйте ещё раз";
-      }
 
       const selections = {
         city: "Красноярск",
@@ -893,7 +818,7 @@
           submit.disabled = true;
           submit.firstElementChild.textContent = "Отправляем...";
 
-          const payload = new FormData();
+          const payload = new FormData(form);
           payload.set("_subject", "Новая заявка с сайта — подбор квартиры");
           payload.set("Имя", form.querySelector("#name").value.trim());
           payload.set("Телефон", `+7 ${phone.value}`);
@@ -902,12 +827,6 @@
           payload.set("Бюджет", selections.budget);
 
           try {
-            const recaptchaToken = await getRecaptchaToken();
-            if (!recaptchaToken) {
-              throw new Error("Не удалось загрузить reCAPTCHA");
-            }
-            payload.set("g-recaptcha-response", recaptchaToken);
-
             const response = await fetch(FORM_ENDPOINT, {
               method: "POST",
               body: payload,
@@ -923,8 +842,8 @@
             toast.classList.add("is-visible");
           } catch (error) {
             const message =
-              error instanceof Error
-                ? getRecaptchaHelpMessage(error.message)
+              error instanceof Error && error.message
+                ? error.message
                 : "Не удалось отправить. Попробуйте ещё раз";
             toast.textContent = message;
             toast.classList.add("is-visible");

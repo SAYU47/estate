@@ -511,18 +511,8 @@ a {
   color: #666;
 }
 
-.grecaptcha-badge,
-body > .grecaptcha-badge {
-  width: 0 !important;
-  height: 0 !important;
-  overflow: hidden !important;
+.grecaptcha-badge {
   visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  position: fixed !important;
-  right: -9999px !important;
-  bottom: -9999px !important;
-  z-index: -1 !important;
 }
 
 .form-actions {

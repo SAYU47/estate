@@ -30,8 +30,14 @@
       href="https://fonts.bunny.net/css?family=montserrat:400,500,600,700,800|caveat:500,600&display=swap"
       rel="stylesheet"
     />
-    <link rel="preconnect" href="https://www.google.com" />
+    <link rel="preconnect" href="https://www.recaptcha.net" />
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin />
     <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://www.recaptcha.net/recaptcha/api.js?render=6LdP2E8tAAAAABCb-pV_mClOUeKCrU_We1y2hndN"
+      async
+      defer
+    ></script>
   </head>
   <body>
     <main class="page">
@@ -784,35 +790,34 @@
       // reCAPTCHA v3: Site key здесь, Secret key — в Formspree → Custom reCAPTCHA Key
       const RECAPTCHA_SITE_KEY = "6LdP2E8tAAAAABCb-pV_mClOUeKCrU_We1y2hndN";
 
-      const recaptchaReady = (() => {
+      function waitForRecaptcha() {
         if (!RECAPTCHA_SITE_KEY) return Promise.resolve();
-
         return new Promise((resolve, reject) => {
-          if (typeof grecaptcha !== "undefined") {
-            grecaptcha.ready(resolve);
-            return;
-          }
-
-          const script = document.createElement("script");
-          script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
-          script.async = true;
-          script.defer = true;
-          script.onload = () => grecaptcha.ready(resolve);
-          script.onerror = () =>
-            reject(new Error("Не удалось загрузить reCAPTCHA"));
-          document.head.appendChild(script);
+          const deadline = Date.now() + 15000;
+          const check = () => {
+            if (typeof grecaptcha !== "undefined") {
+              grecaptcha.ready(resolve);
+              return;
+            }
+            if (Date.now() > deadline) {
+              reject(new Error("Не удалось загрузить reCAPTCHA"));
+              return;
+            }
+            window.setTimeout(check, 100);
+          };
+          check();
         });
-      })();
+      }
 
       async function getRecaptchaToken() {
         if (!RECAPTCHA_SITE_KEY) return null;
 
-        await recaptchaReady;
+        await waitForRecaptcha();
 
         let lastError;
         for (let attempt = 0; attempt < 3; attempt += 1) {
           try {
-            return await new Promise((resolve, reject) => {
+            const token = await new Promise((resolve, reject) => {
               grecaptcha.ready(() => {
                 grecaptcha
                   .execute(RECAPTCHA_SITE_KEY, { action: "submit" })
@@ -820,10 +825,12 @@
                   .catch(reject);
               });
             });
+            if (token && token.length > 20) return token;
+            lastError = new Error("Пустой токен reCAPTCHA");
           } catch (error) {
             lastError = error;
-            await new Promise((resolve) => setTimeout(resolve, 400));
           }
+          await new Promise((resolve) => setTimeout(resolve, 500));
         }
 
         throw lastError;
@@ -832,7 +839,10 @@
       function getRecaptchaHelpMessage(errorText) {
         if (!errorText) return "Не удалось отправить. Попробуйте ещё раз";
         if (errorText.includes("browser-error")) {
-          return "reCAPTCHA: добавьте sayu47.github.io в домены Google reCAPTCHA";
+          return "reCAPTCHA не загрузилась. Отключите блокировщик рекламы и попробуйте снова";
+        }
+        if (errorText.includes("Не удалось загрузить reCAPTCHA")) {
+          return "reCAPTCHA не загрузилась. Проверьте интернет и отключите блокировщик рекламы";
         }
         return "Не удалось отправить. Попробуйте ещё раз";
       }
@@ -893,9 +903,10 @@
 
           try {
             const recaptchaToken = await getRecaptchaToken();
-            if (recaptchaToken) {
-              payload.set("g-recaptcha-response", recaptchaToken);
+            if (!recaptchaToken) {
+              throw new Error("Не удалось загрузить reCAPTCHA");
             }
+            payload.set("g-recaptcha-response", recaptchaToken);
 
             const response = await fetch(FORM_ENDPOINT, {
               method: "POST",

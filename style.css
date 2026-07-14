@@ -277,10 +277,16 @@ a {
 .quiz {
   display: grid;
   gap: 25px;
+  overflow: visible;
 }
 
 .question {
   position: relative;
+}
+
+.question:has(.city-custom:not([hidden])) {
+  z-index: 100;
+  overflow: visible;
 }
 
 .question__number {
@@ -318,6 +324,7 @@ a {
   z-index: 2;
   display: grid;
   gap: 8px;
+  overflow: visible;
 }
 
 .option,
@@ -346,6 +353,80 @@ a {
   background: #ffc800;
   font-weight: 600;
   box-shadow: 0 6px 16px rgba(255, 200, 0, 0.22);
+}
+
+.city-custom {
+  position: relative;
+  z-index: 12;
+  grid-column: 1 / -1;
+  margin-top: 2px;
+}
+
+.city-autocomplete {
+  position: relative;
+  z-index: 13;
+}
+
+.city-autocomplete__input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 43px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 9px;
+  color: #222;
+  background: #fff;
+  font-size: 16px;
+  outline: 0;
+  transition: 160ms ease;
+}
+
+.city-autocomplete__input::placeholder {
+  color: #c4c4c4;
+}
+
+.city-autocomplete__input:focus {
+  border-color: var(--yellow);
+  box-shadow: 0 0 0 3px rgba(255, 200, 0, 0.1);
+}
+
+.city-suggestions {
+  position: absolute;
+  z-index: 200;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  max-height: 260px;
+  margin: 0;
+  padding: 6px 0;
+  overflow-y: auto;
+  list-style: none;
+  border: 1px solid #e4e4e4;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+}
+
+.city-suggestions__item {
+  padding: 12px 16px;
+  font-size: 14px;
+  line-height: 1.35;
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+
+.city-suggestions__item + .city-suggestions__item {
+  border-top: 1px solid #f2f2f2;
+}
+
+.city-suggestions__item:hover,
+.city-suggestions__item:focus {
+  background: #fff7d1;
+}
+
+.city-suggestions__name {
+  display: block;
 }
 
 .type-card {
@@ -855,11 +936,12 @@ a {
     grid-template-columns: 88px 1fr;
     column-gap: 18px;
     align-items: start;
+    overflow: visible;
   }
 
   .question__number {
     grid-column: 1;
-    grid-row: 1 / span 2;
+    grid-row: 1 / -1;
     height: auto;
     margin-top: -8px;
     padding-bottom: 0;
@@ -908,6 +990,23 @@ a {
 
   .option.is-active {
     box-shadow: 0 10px 18px rgba(244, 192, 0, 0.22);
+  }
+
+  .city-autocomplete__input {
+    min-height: 66px;
+    padding: 18px 16px;
+    border-radius: 14px;
+    font-size: 19px;
+  }
+
+  .city-suggestions {
+    max-height: 320px;
+    border-radius: 14px;
+  }
+
+  .city-suggestions__item {
+    padding: 14px 18px;
+    font-size: 17px;
   }
 
   .type-card {

@@ -110,6 +110,29 @@
               <button class="option" type="button" data-value="Дубай/ОАЭ">
                 Дубай/ОАЭ
               </button>
+              <button class="option" type="button" data-value="custom">
+                Выбрать другой город
+              </button>
+              <div class="city-custom" id="city-custom" hidden>
+                <div class="city-autocomplete">
+                  <input
+                    id="city-input"
+                    class="city-autocomplete__input"
+                    type="text"
+                    placeholder="Начните вводить город..."
+                    autocomplete="off"
+                    aria-autocomplete="list"
+                    aria-controls="city-suggestions"
+                    aria-expanded="false"
+                  />
+                  <ul
+                    class="city-suggestions"
+                    id="city-suggestions"
+                    role="listbox"
+                    hidden
+                  ></ul>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -769,8 +792,21 @@
 
     <div class="toast" role="status" aria-live="polite"></div>
 
+    <script src="config.js"></script>
     <script>
-      const FORM_ENDPOINT = "https://formspree.io/f/mojgarrv";
+      const FORM_ENDPOINT =
+        window.APP_CONFIG?.FORM_ENDPOINT || "https://formspree.io/f/meeyjgnz";
+
+      function formatFormspreeError(errorText) {
+        if (!errorText) return "Не удалось отправить. Попробуйте ещё раз";
+        if (errorText.includes("reCAPTCHA")) {
+          return "Formspree всё ещё требует reCAPTCHA для формы mojgarrv. Откройте именно эту форму → Settings → CAPTCHA → выключите → Save";
+        }
+        if (errorText.includes("Turnstile")) {
+          return "Formspree требует Turnstile. Либо отключите CAPTCHA, либо подключите Cloudflare Turnstile";
+        }
+        return errorText;
+      }
 
       const selections = {
         city: "Красноярск",
@@ -778,17 +814,171 @@
         budget: "До 5 млн ₽",
       };
 
-      document.querySelectorAll("[data-group]").forEach((group) => {
-        group.addEventListener("click", (event) => {
-          const button = event.target.closest("button[data-value]");
-          if (!button) return;
-          group
-            .querySelectorAll("button")
-            .forEach((item) => item.classList.remove("is-active"));
-          button.classList.add("is-active");
-          selections[group.dataset.group] = button.dataset.value;
+      const cityGroup = document.querySelector('[data-group="city"]');
+      const cityCustom = document.getElementById("city-custom");
+      const cityInput = document.getElementById("city-input");
+      const citySuggestions = document.getElementById("city-suggestions");
+      let cityMode = "preset";
+      let citySearchTimer;
+      let citySearchRequest = 0;
+
+      const CITY_OSM_TYPES = new Set([
+        "city",
+        "town",
+        "village",
+        "hamlet",
+        "locality",
+        "municipality",
+        "borough",
+        "suburb",
+      ]);
+
+      function formatCityLabel(properties) {
+        const parts = [properties.name];
+        if (properties.state && properties.state !== properties.name) {
+          parts.push(properties.state);
+        }
+        if (properties.country) {
+          parts.push(properties.country);
+        }
+        return parts.join(", ");
+      }
+
+      function hideCitySuggestions() {
+        citySuggestions.hidden = true;
+        citySuggestions.replaceChildren();
+        cityInput.setAttribute("aria-expanded", "false");
+      }
+
+      function setCustomCity(value) {
+        cityInput.value = value;
+        selections.city = value.trim();
+      }
+
+      function showCustomCityField() {
+        cityMode = "custom";
+        cityCustom.hidden = false;
+        cityInput.required = true;
+        setCustomCity(cityInput.value);
+        cityInput.focus();
+      }
+
+      function hideCustomCityField() {
+        cityMode = "preset";
+        cityCustom.hidden = true;
+        cityInput.required = false;
+        cityInput.value = "";
+        hideCitySuggestions();
+      }
+
+      function renderCitySuggestions(items) {
+        citySuggestions.replaceChildren();
+        if (!items.length) {
+          hideCitySuggestions();
+          return;
+        }
+
+        const seen = new Set();
+        items.forEach((item) => {
+          const label = formatCityLabel(item.properties);
+          if (!label || seen.has(label)) return;
+          seen.add(label);
+
+          const option = document.createElement("li");
+          option.className = "city-suggestions__item";
+          option.setAttribute("role", "option");
+          const name = document.createElement("span");
+          name.className = "city-suggestions__name";
+          name.textContent = label;
+          option.append(name);
+          option.addEventListener("mousedown", (event) => {
+            event.preventDefault();
+            setCustomCity(label);
+            hideCitySuggestions();
+          });
+          citySuggestions.appendChild(option);
         });
+
+        citySuggestions.hidden = citySuggestions.childElementCount === 0;
+        cityInput.setAttribute(
+          "aria-expanded",
+          citySuggestions.hidden ? "false" : "true",
+        );
+      }
+
+      async function searchCities(query) {
+        const requestId = ++citySearchRequest;
+        try {
+          const response = await fetch(
+            `https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&limit=15`,
+          );
+          if (!response.ok) return;
+          const data = await response.json();
+          if (requestId !== citySearchRequest) return;
+
+          let items = (data.features || []).filter((feature) =>
+            CITY_OSM_TYPES.has(feature.properties?.osm_value),
+          );
+          if (!items.length) {
+            items = (data.features || []).filter(
+              (feature) => feature.properties?.name,
+            );
+          }
+          renderCitySuggestions(items);
+        } catch {
+          if (requestId === citySearchRequest) hideCitySuggestions();
+        }
+      }
+
+      cityGroup.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-value]");
+        if (!button) return;
+
+        cityGroup
+          .querySelectorAll("button")
+          .forEach((item) => item.classList.remove("is-active"));
+        button.classList.add("is-active");
+
+        if (button.dataset.value === "custom") {
+          showCustomCityField();
+          return;
+        }
+
+        hideCustomCityField();
+        selections.city = button.dataset.value;
       });
+
+      cityInput.addEventListener("input", () => {
+        setCustomCity(cityInput.value);
+        const query = cityInput.value.trim();
+        window.clearTimeout(citySearchTimer);
+
+        if (query.length < 2) {
+          citySearchRequest += 1;
+          hideCitySuggestions();
+          return;
+        }
+
+        citySearchTimer = window.setTimeout(() => searchCities(query), 300);
+      });
+
+      cityInput.addEventListener("blur", () => {
+        window.setTimeout(hideCitySuggestions, 150);
+      });
+
+      document
+        .querySelectorAll("[data-group]:not([data-group='city'])")
+        .forEach((group) => {
+          group.addEventListener("click", (event) => {
+            const button = event.target.closest("button[data-value]");
+            if (!button) return;
+            group
+              .querySelectorAll("button")
+              .forEach((item) => item.classList.remove("is-active"));
+            button.classList.add("is-active");
+            selections[group.dataset.group] = button.dataset.value;
+          });
+        });
 
       const phone = document.querySelector("#phone");
       phone.addEventListener("input", () => {
@@ -812,6 +1002,20 @@
         .addEventListener("submit", async (event) => {
           event.preventDefault();
           const form = event.currentTarget;
+          if (cityMode === "custom") {
+            const customCity = cityInput.value.trim();
+            if (!customCity) {
+              cityInput.focus();
+              toast.textContent = "Введите город";
+              toast.classList.add("is-visible");
+              window.setTimeout(
+                () => toast.classList.remove("is-visible"),
+                3500,
+              );
+              return;
+            }
+            selections.city = customCity;
+          }
           if (!form.reportValidity()) return;
           const submit = form.querySelector(".submit");
           const toast = document.querySelector(".toast");
@@ -838,12 +1042,37 @@
               throw new Error(result.error || "submit failed");
             }
             form.reset();
+            hideCustomCityField();
+            cityGroup
+              .querySelectorAll("button")
+              .forEach((item) => item.classList.remove("is-active"));
+            cityGroup
+              .querySelector('button[data-value="Красноярск"]')
+              ?.classList.add("is-active");
+            selections.city = "Красноярск";
+            selections.type = "Квартира";
+            selections.budget = "До 5 млн ₽";
+            document
+              .querySelectorAll(
+                "[data-group]:not([data-group='city']) .is-active",
+              )
+              .forEach((item) => item.classList.remove("is-active"));
+            document
+              .querySelector(
+                '[data-group="type"] button[data-value="Квартира"]',
+              )
+              ?.classList.add("is-active");
+            document
+              .querySelector(
+                '[data-group="budget"] button[data-value="До 5 млн ₽"]',
+              )
+              ?.classList.add("is-active");
             toast.textContent = "Спасибо! Заявка отправлена";
             toast.classList.add("is-visible");
           } catch (error) {
             const message =
               error instanceof Error && error.message
-                ? error.message
+                ? formatFormspreeError(error.message)
                 : "Не удалось отправить. Попробуйте ещё раз";
             toast.textContent = message;
             toast.classList.add("is-visible");

@@ -1130,26 +1130,8 @@
             if (!response.ok) {
               throw new Error(result.error || "submit failed");
             }
-            form.reset();
-            hideCustomCityField();
-            cityGroup
-              .querySelectorAll("button")
-              .forEach((item) => item.classList.remove("is-active"));
-            cityGroup
-              .querySelector('button[data-value="Красноярск"]')
-              ?.classList.add("is-active");
-            selections.city = "Красноярск";
-            selections.type = null;
-            selections.typeSub = null;
-            selections.budget = null;
-            clearTypeSubSelection();
-            document
-              .querySelectorAll(
-                "[data-group]:not([data-group='city']) .is-active",
-              )
-              .forEach((item) => item.classList.remove("is-active"));
-            toast.textContent = "Спасибо! Заявка отправлена";
-            toast.classList.add("is-visible");
+            window.location.href = "success.html";
+            return;
           } catch (error) {
             const message =
               error instanceof Error && error.message

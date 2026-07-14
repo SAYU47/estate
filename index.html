@@ -176,7 +176,11 @@
                     >
                       Вторичное жильё
                     </button>
-                    <button class="option" type="button" data-value="Новостройка">
+                    <button
+                      class="option"
+                      type="button"
+                      data-value="Новостройка"
+                    >
                       Новостройка
                     </button>
                   </div>
@@ -207,7 +211,11 @@
                 </button>
                 <div class="type-sub" data-group="type-sub-house">
                   <div class="type-sub__inner">
-                    <button class="option" type="button" data-value="Готовый дом">
+                    <button
+                      class="option"
+                      type="button"
+                      data-value="Готовый дом"
+                    >
                       Готовый дом
                     </button>
                     <button
@@ -819,7 +827,7 @@
     <script src="config.js"></script>
     <script>
       const FORM_ENDPOINT =
-        window.APP_CONFIG?.FORM_ENDPOINT || "https://formspree.io/f/meeyjgnz";
+        window.APP_CONFIG?.FORM_ENDPOINT || "https://formspree.io/f/mojgarrv";
 
       function formatFormspreeError(errorText) {
         if (!errorText) return "Не удалось отправить. Попробуйте ещё раз";
@@ -1108,10 +1116,7 @@
           payload.set("Имя", form.querySelector("#name").value.trim());
           payload.set("Телефон", `+7 ${phone.value}`);
           payload.set("Город", selections.city);
-          payload.set(
-            "Что ищут",
-            `${selections.type} — ${selections.typeSub}`,
-          );
+          payload.set("Что ищут", `${selections.type} — ${selections.typeSub}`);
           payload.set("Бюджет", selections.budget);
 
           try {

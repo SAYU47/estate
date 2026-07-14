@@ -341,8 +341,9 @@ a {
   width: 100%;
   min-height: 43px;
   padding: 10px 14px;
+  border: 1.5px solid var(--line);
   border-radius: 9px;
-  background: #f6f6f6;
+  background: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.035);
   font-size: 12px;
   font-weight: 500;
@@ -351,8 +352,81 @@ a {
 
 .option.is-active {
   background: #ffc800;
+  border-color: var(--yellow);
   font-weight: 600;
   box-shadow: 0 6px 16px rgba(255, 200, 0, 0.22);
+}
+
+.type-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.type-sub {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition:
+    grid-template-rows 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 240ms ease,
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.type-sub__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.type-column:has(.type-card.is-active) .type-sub {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.type-column:has(.type-card.is-active) .type-sub .option {
+  animation: type-sub-item-in 360ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.type-column:has(.type-card.is-active) .type-sub .option:nth-child(2) {
+  animation-delay: 70ms;
+}
+
+@keyframes type-sub-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.type-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  min-height: 56px;
+  padding: 8px 11px;
+  border: 1.5px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 500;
+  transition: 160ms ease;
 }
 
 .city-custom {
@@ -427,22 +501,6 @@ a {
 
 .city-suggestions__name {
   display: block;
-}
-
-.type-card {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  min-height: 56px;
-  padding: 8px 11px;
-  border: 1.5px solid var(--line);
-  border-radius: 9px;
-  background: #fff;
-  text-align: left;
-  font-size: 12px;
-  font-weight: 500;
-  transition: 160ms ease;
 }
 
 .type-card__arrow {
@@ -989,6 +1047,7 @@ a {
   }
 
   .option.is-active {
+    border-color: var(--yellow);
     box-shadow: 0 10px 18px rgba(244, 192, 0, 0.22);
   }
 

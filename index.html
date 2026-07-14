@@ -148,50 +148,78 @@
             </div>
             <h2>Что вы ищете?</h2>
             <div class="options options--cards" data-group="type">
-              <button
-                class="type-card is-active"
-                type="button"
-                data-value="Квартира"
-              >
-                <span class="type-card__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24">
-                    <path
-                      d="M5 21V3h11v7h3v11H5Zm3-14h2M8 11h2m-2 4h2m3-8h1m-1 4h1m-1 4h1"
-                    />
-                  </svg>
-                </span>
-                <span>Квартира</span>
-                <span class="radio" aria-hidden="true">
-                  <svg viewBox="0 0 20 20">
-                    <path
-                      fill="currentColor"
-                      d="M8.2 13.6 4.9 10.3l1.1-1.1 2.2 2.2 5-5 1.1 1.1-6.1 6.1Z"
-                    />
-                  </svg>
-                </span>
-              </button>
-              <button class="type-card" type="button" data-value="Дом">
-                <span class="type-card__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24">
-                    <path d="m3 11 9-8 9 8M6 9v12h12V9M10 21v-6h4v6" />
-                  </svg>
-                </span>
-                <span>Дом</span>
-                <span class="radio" aria-hidden="true">
-                  <svg viewBox="0 0 20 20">
-                    <path
-                      fill="currentColor"
-                      d="M8.2 13.6 4.9 10.3l1.1-1.1 2.2 2.2 5-5 1.1 1.1-6.1 6.1Z"
-                    />
-                  </svg>
-                </span>
-                <img
-                  class="type-card__arrow"
-                  src="assets/decor/arrow.png"
-                  alt=""
-                  aria-hidden="true"
-                />
-              </button>
+              <div class="type-column">
+                <button class="type-card" type="button" data-value="Квартира">
+                  <span class="type-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <path
+                        d="M5 21V3h11v7h3v11H5Zm3-14h2M8 11h2m-2 4h2m3-8h1m-1 4h1m-1 4h1"
+                      />
+                    </svg>
+                  </span>
+                  <span>Квартира</span>
+                  <span class="radio" aria-hidden="true">
+                    <svg viewBox="0 0 20 20">
+                      <path
+                        fill="currentColor"
+                        d="M8.2 13.6 4.9 10.3l1.1-1.1 2.2 2.2 5-5 1.1 1.1-6.1 6.1Z"
+                      />
+                    </svg>
+                  </span>
+                </button>
+                <div class="type-sub" data-group="type-sub-apartment">
+                  <div class="type-sub__inner">
+                    <button
+                      class="option"
+                      type="button"
+                      data-value="Вторичное жильё"
+                    >
+                      Вторичное жильё
+                    </button>
+                    <button class="option" type="button" data-value="Новостройка">
+                      Новостройка
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="type-column">
+                <button class="type-card" type="button" data-value="Дом">
+                  <span class="type-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <path d="m3 11 9-8 9 8M6 9v12h12V9M10 21v-6h4v6" />
+                    </svg>
+                  </span>
+                  <span>Дом</span>
+                  <span class="radio" aria-hidden="true">
+                    <svg viewBox="0 0 20 20">
+                      <path
+                        fill="currentColor"
+                        d="M8.2 13.6 4.9 10.3l1.1-1.1 2.2 2.2 5-5 1.1 1.1-6.1 6.1Z"
+                      />
+                    </svg>
+                  </span>
+                  <img
+                    class="type-card__arrow"
+                    src="assets/decor/arrow.png"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                </button>
+                <div class="type-sub" data-group="type-sub-house">
+                  <div class="type-sub__inner">
+                    <button class="option" type="button" data-value="Готовый дом">
+                      Готовый дом
+                    </button>
+                    <button
+                      class="option"
+                      type="button"
+                      data-value="ИЖС Строительство"
+                    >
+                      ИЖС Строительство
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -207,11 +235,7 @@
             </div>
             <h2>Планируемый бюджет</h2>
             <div class="options options--stack" data-group="budget">
-              <button
-                class="option is-active"
-                type="button"
-                data-value="До 5 млн ₽"
-              >
+              <button class="option" type="button" data-value="До 5 млн ₽">
                 До 5 млн ₽
               </button>
               <button class="option" type="button" data-value="5–10 млн ₽">
@@ -810,9 +834,42 @@
 
       const selections = {
         city: "Красноярск",
-        type: "Квартира",
-        budget: "До 5 млн ₽",
+        type: null,
+        typeSub: null,
+        budget: null,
       };
+
+      const typeGroup = document.querySelector('[data-group="type"]');
+      const typeSubApartment = document.querySelector(
+        '[data-group="type-sub-apartment"]',
+      );
+      const typeSubHouse = document.querySelector(
+        '[data-group="type-sub-house"]',
+      );
+
+      function clearTypeSubSelection() {
+        [typeSubApartment, typeSubHouse].forEach((group) => {
+          group
+            ?.querySelectorAll("button")
+            .forEach((item) => item.classList.remove("is-active"));
+        });
+        selections.typeSub = null;
+      }
+
+      typeGroup.addEventListener("click", (event) => {
+        const button = event.target.closest(".type-card[data-value]");
+        if (!button) return;
+
+        const prevType = selections.type;
+        typeGroup
+          .querySelectorAll(".type-card")
+          .forEach((item) => item.classList.remove("is-active"));
+        button.classList.add("is-active");
+        selections.type = button.dataset.value;
+        if (prevType !== selections.type) {
+          clearTypeSubSelection();
+        }
+      });
 
       const cityGroup = document.querySelector('[data-group="city"]');
       const cityCustom = document.getElementById("city-custom");
@@ -967,7 +1024,9 @@
       });
 
       document
-        .querySelectorAll("[data-group]:not([data-group='city'])")
+        .querySelectorAll(
+          "[data-group]:not([data-group='city']):not([data-group='type'])",
+        )
         .forEach((group) => {
           group.addEventListener("click", (event) => {
             const button = event.target.closest("button[data-value]");
@@ -976,6 +1035,10 @@
               .querySelectorAll("button")
               .forEach((item) => item.classList.remove("is-active"));
             button.classList.add("is-active");
+            if (group.dataset.group.startsWith("type-sub")) {
+              selections.typeSub = button.dataset.value;
+              return;
+            }
             selections[group.dataset.group] = button.dataset.value;
           });
         });
@@ -1016,9 +1079,27 @@
             }
             selections.city = customCity;
           }
+          const toast = document.querySelector(".toast");
+          if (!selections.type) {
+            toast.textContent = "Выберите, что вы ищете";
+            toast.classList.add("is-visible");
+            window.setTimeout(() => toast.classList.remove("is-visible"), 3500);
+            return;
+          }
+          if (!selections.typeSub) {
+            toast.textContent = "Уточните тип недвижимости";
+            toast.classList.add("is-visible");
+            window.setTimeout(() => toast.classList.remove("is-visible"), 3500);
+            return;
+          }
+          if (!selections.budget) {
+            toast.textContent = "Выберите бюджет";
+            toast.classList.add("is-visible");
+            window.setTimeout(() => toast.classList.remove("is-visible"), 3500);
+            return;
+          }
           if (!form.reportValidity()) return;
           const submit = form.querySelector(".submit");
-          const toast = document.querySelector(".toast");
           submit.disabled = true;
           submit.firstElementChild.textContent = "Отправляем...";
 
@@ -1027,7 +1108,10 @@
           payload.set("Имя", form.querySelector("#name").value.trim());
           payload.set("Телефон", `+7 ${phone.value}`);
           payload.set("Город", selections.city);
-          payload.set("Что ищут", selections.type);
+          payload.set(
+            "Что ищут",
+            `${selections.type} — ${selections.typeSub}`,
+          );
           payload.set("Бюджет", selections.budget);
 
           try {
@@ -1050,23 +1134,15 @@
               .querySelector('button[data-value="Красноярск"]')
               ?.classList.add("is-active");
             selections.city = "Красноярск";
-            selections.type = "Квартира";
-            selections.budget = "До 5 млн ₽";
+            selections.type = null;
+            selections.typeSub = null;
+            selections.budget = null;
+            clearTypeSubSelection();
             document
               .querySelectorAll(
                 "[data-group]:not([data-group='city']) .is-active",
               )
               .forEach((item) => item.classList.remove("is-active"));
-            document
-              .querySelector(
-                '[data-group="type"] button[data-value="Квартира"]',
-              )
-              ?.classList.add("is-active");
-            document
-              .querySelector(
-                '[data-group="budget"] button[data-value="До 5 млн ₽"]',
-              )
-              ?.classList.add("is-active");
             toast.textContent = "Спасибо! Заявка отправлена";
             toast.classList.add("is-visible");
           } catch (error) {

@@ -157,6 +157,25 @@ a {
   margin: 6px 0 0;
 }
 
+.trust-bar {
+  width: min(100vw, 1200px);
+  margin-inline: calc((100% - min(100vw, 1200px)) / 2);
+  margin-bottom: 16px;
+  padding: 0 8px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.trust-bar__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: none;
+  border-radius: 0;
+}
+
 @media (min-width: 768px) {
   .hero {
     grid-template-columns: minmax(180px, clamp(200px, 26vw, 340px)) minmax(0, 1fr);
@@ -338,6 +357,10 @@ a {
 .option {
   position: relative;
   z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   width: 100%;
   min-height: 43px;
   padding: 10px 14px;
@@ -347,7 +370,16 @@ a {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.035);
   font-size: 12px;
   font-weight: 500;
+  text-align: center;
   transition: 160ms ease;
+}
+
+.option__icon {
+  display: block;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  object-fit: contain;
 }
 
 .option.is-active {
@@ -507,12 +539,33 @@ a {
   position: absolute;
   z-index: 3;
   top: -7px;
-  right: -21px;
-  bottom: auto;
   width: 17px;
   height: auto;
   pointer-events: none;
+}
+
+.type-card__arrow--right {
+  right: -21px;
   transform: rotate(-8deg);
+}
+
+.budget-option {
+  position: relative;
+}
+
+.budget-option__arrow {
+  position: absolute;
+  z-index: 3;
+  top: -7px;
+  left: -21px;
+  width: 17px;
+  height: auto;
+  pointer-events: none;
+  transform: scaleX(-1) rotate(-8deg);
+}
+
+.budget-option .option {
+  width: 100%;
 }
 
 .type-card.is-active {
@@ -675,6 +728,21 @@ a {
 .submit:disabled {
   cursor: wait;
   opacity: 0.72;
+}
+
+.quote-card {
+  margin-top: 18px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.quote-card__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: none;
+  border-radius: 0;
 }
 
 .benefits {
@@ -1044,6 +1112,13 @@ a {
     font-size: 19px;
     font-weight: 600;
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+    gap: 14px;
+  }
+
+  .option__icon {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
   }
 
   .option.is-active {

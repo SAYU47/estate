@@ -69,6 +69,16 @@
         </div>
       </section>
 
+      <section class="trust-bar" aria-label="Преимущества специалиста">
+        <img
+          class="trust-bar__img"
+          src="assets/decor/trust-bar.png"
+          width="1024"
+          height="195"
+          alt="Эксперт по недвижимости в Красноярске. Работаю в компании №1 — Этажи. Гарантия безопасности сделки."
+        />
+      </section>
+
       <div class="layout">
         <form class="quiz" id="quiz-form">
           <input
@@ -102,13 +112,37 @@
                 type="button"
                 data-value="Красноярск"
               >
-                Красноярск
+                <img
+                  class="option__icon"
+                  src="assets/icons/city-pin.png"
+                  width="22"
+                  height="22"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <span>Красноярск</span>
               </button>
               <button class="option" type="button" data-value="Москва">
-                Москва
+                <img
+                  class="option__icon"
+                  src="assets/icons/city-moscow.png"
+                  width="22"
+                  height="22"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <span>Москва</span>
               </button>
               <button class="option" type="button" data-value="Дубай/ОАЭ">
-                Дубай/ОАЭ
+                <img
+                  class="option__icon"
+                  src="assets/icons/city-dubai.png"
+                  width="22"
+                  height="22"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <span>Дубай/ОАЭ</span>
               </button>
               <button class="option" type="button" data-value="custom">
                 Выбрать другой город
@@ -203,7 +237,7 @@
                     </svg>
                   </span>
                   <img
-                    class="type-card__arrow"
+                    class="type-card__arrow type-card__arrow--right"
                     src="assets/decor/arrow.png"
                     alt=""
                     aria-hidden="true"
@@ -246,9 +280,17 @@
               <button class="option" type="button" data-value="До 5 млн ₽">
                 До 5 млн ₽
               </button>
-              <button class="option" type="button" data-value="5–10 млн ₽">
-                5–10 млн ₽
-              </button>
+              <div class="budget-option">
+                <img
+                  class="budget-option__arrow"
+                  src="assets/decor/arrow.png"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <button class="option" type="button" data-value="5–10 млн ₽">
+                  5–10 млн ₽
+                </button>
+              </div>
               <button class="option" type="button" data-value="Более 10 млн ₽">
                 Более 10 млн ₽
               </button>
@@ -322,6 +364,16 @@
           </div>
         </form>
       </div>
+
+      <section class="quote-card" aria-label="Цитата специалиста">
+        <img
+          class="quote-card__img"
+          src="assets/decor/quote-card.png"
+          width="1024"
+          height="314"
+          alt="Я не «продаю квартиры» — я решаю ваши задачи с недвижимостью. Работаю так, как хотел бы, чтобы работали для меня."
+        />
+      </section>
 
       <section class="benefits" aria-label="Преимущества">
         <div class="benefits__grid">

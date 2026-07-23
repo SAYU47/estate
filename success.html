@@ -27,7 +27,7 @@
     <link rel="manifest" href="manifest.json" />
     <link rel="preconnect" href="https://fonts.bunny.net" />
     <link
-      href="https://fonts.bunny.net/css?family=montserrat:400,500,600,700,800&display=swap"
+      href="https://fonts.bunny.net/css?family=caveat:500,600,700|montserrat:400,500,600,700,800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -47,23 +47,144 @@
         </svg>
         Назад
       </a>
+
       <div class="success-page__content">
-        <h1 class="success-page__title">Спасибо за заявку</h1>
-        <p class="success-page__text">
-          Мы уже изучаем ваш запрос и скоро свяжемся с вами.
-        </p>
-        <p class="success-page__cta">
-          Подпишитесь на Telegram<br />
-          с квартирами и акциями
-        </p>
-        <a
-          class="success-page__button"
-          href="https://t.me/grigakrsk"
-          target="_blank"
-          rel="noopener"
-        >
-          Перейти в Telegram
-        </a>
+        <header class="success-page__hero">
+          <span class="success-page__hero-note">недвижимость</span>
+          <h1 class="success-page__title">
+            СПАСИБО<br />ЗА ЗАЯВКУ!
+          </h1>
+          <p class="success-page__lead">
+            Ваша заявка уже в работе. В течение 24 часов мы изучим ваш запрос и
+            <strong>свяжемся с&nbsp;вами</strong>.
+          </p>
+          <a class="success-page__hero-button" href="index.html">
+            ВЕРНУТЬСЯ НА САЙТ
+            <span aria-hidden="true">↗</span>
+          </a>
+        </header>
+
+        <div class="success-page__topic-strip" aria-label="Наши услуги">
+          <span>ПОДБОР ОБЪЕКТОВ</span>
+          <span>ОДОБРЕНИЕ ИПОТЕКИ</span>
+          <span>СОПРОВОЖДЕНИЕ СДЕЛКИ</span>
+        </div>
+
+        <section class="success-page__why" aria-labelledby="why-me-title">
+          <span class="success-page__chalk success-page__chalk--top" aria-hidden="true"></span>
+          <span class="success-page__chalk success-page__chalk--left" aria-hidden="true"></span>
+          <span class="success-page__chalk success-page__chalk--right" aria-hidden="true"></span>
+
+          <h2 class="success-page__why-title" id="why-me-title">
+            ПОЧЕМУ <span>Я?</span>
+          </h2>
+
+          <div class="success-page__reasons">
+            <article class="success-page__reason success-page__reason--left">
+              <span class="success-page__reason-number">1</span>
+              <div>
+                <h3>БОЛЬШОЙ ВЫБОР ОБЪЕКТОВ</h3>
+                <p>
+                  Сотрудничаю со всеми застройщиками и знаю о всех акциях и
+                  низких ставках
+                </p>
+              </div>
+            </article>
+
+            <article class="success-page__reason success-page__reason--right">
+              <span class="success-page__reason-number">2</span>
+              <div>
+                <h3>КОМПЛЕКС УСЛУГ.</h3>
+                <p>
+                  Полное сопровождение сделки: от поиска объекта до оформления
+                  документов.
+                </p>
+              </div>
+            </article>
+
+            <article class="success-page__reason success-page__reason--center">
+              <span class="success-page__reason-number">3</span>
+              <div>
+                <h3>ИПОТЕКА</h3>
+                <p>
+                  Также помогаю с ипотекой, страхованием, бесплатным
+                  рефинансированием, ремонтом и дизайном интерьера.
+                </p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="success-page__telegram" aria-label="Telegram-каналы">
+          <p class="success-page__while-wait">
+            <strong>Пока ожидаете ответ</strong>
+          </p>
+          <p class="success-page__subscribe">
+            Подписывайтесь<br />
+            в Telegram, там вы получите:
+          </p>
+
+          <ul class="success-page__benefits">
+            <li>Бесплатную консультацию</li>
+            <li>Акции застройщиков</li>
+            <li>Низкие процентные ставки</li>
+            <li>Одобрение ипотеки</li>
+            <li>Полезные советы</li>
+          </ul>
+
+          <p class="success-page__channels-label">Выбирайте нужный город:</p>
+          <div class="success-page__channels">
+            <button type="button" class="success-page__channel">
+              <span class="success-page__channel-name">Канал для Красноярска</span>
+              <span class="success-page__channel-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    fill="#fff"
+                    d="M9.993 17.854 10.129 14.2l6.916-6.228c.262-.238-.057-.366-.403-.146l-8.404 5.453-3.624-1.13c-.79-.245-.805-.79.172-1.176l14.053-5.422c.656-.247 1.233.153 1.007.958l-2.389 11.222c-.175.786-.647 1.002-1.321.621l-3.646-2.686-1.762 1.728c-.196.197-.362.362-.736.362Z"
+                  />
+                </svg>
+              </span>
+            </button>
+            <button type="button" class="success-page__channel">
+              <span class="success-page__channel-name">Канал для Москвы</span>
+              <span class="success-page__channel-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    fill="#fff"
+                    d="M9.993 17.854 10.129 14.2l6.916-6.228c.262-.238-.057-.366-.403-.146l-8.404 5.453-3.624-1.13c-.79-.245-.805-.79.172-1.176l14.053-5.422c.656-.247 1.233.153 1.007.958l-2.389 11.222c-.175.786-.647 1.002-1.321.621l-3.646-2.686-1.762 1.728c-.196.197-.362.362-.736.362Z"
+                  />
+                </svg>
+              </span>
+            </button>
+            <button type="button" class="success-page__channel">
+              <span class="success-page__channel-name">Канал для Дубая</span>
+              <span class="success-page__channel-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    fill="#fff"
+                    d="M9.993 17.854 10.129 14.2l6.916-6.228c.262-.238-.057-.366-.403-.146l-8.404 5.453-3.624-1.13c-.79-.245-.805-.79.172-1.176l14.053-5.422c.656-.247 1.233.153 1.007.958l-2.389 11.222c-.175.786-.647 1.002-1.321.621l-3.646-2.686-1.762 1.728c-.196.197-.362.362-.736.362Z"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+
+          <img
+            class="success-page__arrow"
+            src="assets/decor/glossy-arrow.png"
+            width="72"
+            height="120"
+            alt=""
+            aria-hidden="true"
+          />
+        </section>
+
+        <footer class="success-page__author">
+          <p class="success-page__author-name">Евгений Григорьев</p>
+          <p class="success-page__author-role">
+            Эксперт по недвижимости в Красноярске
+          </p>
+        </footer>
       </div>
     </main>
   </body>

@@ -2646,7 +2646,17 @@ a {
 
 @media (min-width: 768px) {
   .success-page {
+    flex-direction: column;
+    align-items: stretch;
     padding-inline: 44px;
+    padding-bottom: 0;
+    box-shadow: none;
+  }
+
+  .success-page__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   .success-page__back {
@@ -2655,16 +2665,26 @@ a {
 
   .success-page__hero,
   .success-page__topic-strip,
-  .success-page__why,
   .success-page__telegram {
-    width: calc(100% + 88px);
-    margin-inline: -44px;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding-inline: max(44px, calc((100vw - min(100vw, 620px)) / 2 + 44px));
   }
 
-  .success-page__hero,
-  .success-page__why,
-  .success-page__telegram {
-    padding-inline: 44px;
+  .success-page__author {
+    flex: 1;
+    width: 100vw;
+    max-width: 100vw;
+    margin-top: 0;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding-inline: max(44px, calc((100vw - min(100vw, 620px)) / 2 + 44px));
+    padding-top: 18px;
+    padding-bottom: 32px;
+    border-top: 0;
+    background: #fff;
   }
 }
 
@@ -2674,8 +2694,11 @@ a {
 
 @media (min-width: 768px) {
   .page > .main-page__why {
-    width: 100%;
-    margin: 24px 0 0;
-    padding-inline: clamp(44px, 8vw, 96px);
+    width: 100vw;
+    max-width: 100vw;
+    margin-top: 24px;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding-inline: calc((100vw - min(100vw, 1200px)) / 2 + 22px);
   }
 }

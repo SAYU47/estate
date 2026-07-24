@@ -27,7 +27,7 @@
     <link rel="manifest" href="manifest.json" />
     <link rel="preconnect" href="https://fonts.bunny.net" />
     <link
-      href="https://fonts.bunny.net/css?family=caveat:500,600,700|marck-script:400|montserrat:400,500,600,700,800&display=swap"
+      href="https://fonts.bunny.net/css?family=caveat:500,600,700|montserrat:400,500,600,700,800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -89,8 +89,17 @@
           </ul>
 
           <p class="success-page__channels-label">Telegram-канал:</p>
+          <p class="success-page__channels-note">
+            Если вы находитесь в&nbsp;РФ, для перехода в&nbsp;Telegram-канал
+            может потребоваться VPN.
+          </p>
           <div class="success-page__channels">
-            <button type="button" class="success-page__channel">
+            <a
+              class="success-page__channel"
+              href="https://t.me/podbor_kvartir_krsk"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <span class="success-page__channel-name">Канал для Красноярска</span>
               <span class="success-page__channel-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24">
@@ -100,7 +109,7 @@
                   />
                 </svg>
               </span>
-            </button>
+            </a>
           </div>
 
           <img

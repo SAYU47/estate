@@ -2567,11 +2567,27 @@ a {
   height: 18px;
 }
 
-.success-page__arrow {
+.success-page__channel-arrow {
   display: block;
-  width: clamp(56px, 16vw, 72px);
+  width: clamp(48px, 14vw, 68px);
   height: auto;
-  margin: 18px auto 0;
+  margin: 14px auto 8px;
+  transform: rotate(8deg);
+}
+
+.success-page__channel-preview {
+  display: block;
+  width: min(72%, 280px);
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.success-page__channel-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .success-page__author {

@@ -2581,7 +2581,7 @@ a {
   align-items: center;
   width: 100%;
   max-width: 100%;
-  margin-top: clamp(22px, 7vw, 32px);
+  margin-top: clamp(14px, 4.5vw, 22px);
 }
 
 .success-page__channel-arrow {
@@ -2590,7 +2590,7 @@ a {
   width: clamp(48px, 14vw, 68px);
   max-width: 68px;
   height: auto;
-  margin: 10px auto 8px;
+  margin: 6px auto 8px;
   transform: rotate(8deg);
 }
 

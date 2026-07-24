@@ -2173,6 +2173,8 @@ a {
 
 .success-page__content {
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   text-align: center;
 }
 
@@ -2448,10 +2450,16 @@ a {
   width: calc(100% + 56px);
   margin: 0 -28px;
   padding: clamp(38px, 10vw, 58px) 24px clamp(44px, 12vw, 66px);
-  overflow: hidden;
+  overflow: visible;
   color: #fff;
   background: #202020;
   text-align: center;
+}
+
+.success-page__telegram img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 .success-page__while-wait {
@@ -2567,9 +2575,20 @@ a {
   height: 18px;
 }
 
+.success-page__channel-showcase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 6px;
+}
+
 .success-page__channel-arrow {
   display: block;
+  flex: 0 0 auto;
   width: clamp(48px, 14vw, 68px);
+  max-width: 68px;
   height: auto;
   margin: 14px auto 8px;
   transform: rotate(8deg);
@@ -2577,7 +2596,9 @@ a {
 
 .success-page__channel-preview {
   display: block;
+  flex: 0 1 auto;
   width: min(72%, 280px);
+  max-width: 280px;
   margin: 0 auto;
   overflow: hidden;
   border-radius: 14px;
@@ -2587,6 +2608,7 @@ a {
 .success-page__channel-preview img {
   display: block;
   width: 100%;
+  max-width: 100%;
   height: auto;
 }
 

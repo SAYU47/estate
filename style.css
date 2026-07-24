@@ -747,6 +747,8 @@ a {
 
 .benefits {
   margin-top: 18px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .page .benefits__grid {
@@ -756,10 +758,11 @@ a {
 
 .page .benefit {
   display: grid;
-  grid-template-columns: 128px 1fr;
+  grid-template-columns: 128px minmax(0, 1fr);
   align-items: start;
   column-gap: 14px;
   padding: 14px 0;
+  min-width: 0;
   min-height: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
@@ -775,6 +778,8 @@ a {
 }
 
 .page .benefit__content {
+  min-width: 0;
+  max-width: 100%;
   justify-self: end;
   text-align: right;
 }
@@ -789,6 +794,8 @@ a {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .benefit {
@@ -855,6 +862,11 @@ a {
   font-weight: 400;
   line-height: 1.35;
   color: #888;
+  overflow-wrap: anywhere;
+}
+
+.benefit__desc-nowrap {
+  white-space: nowrap;
 }
 
 @media (max-width: 780px) {
@@ -880,10 +892,11 @@ a {
 
   .benefit {
     display: grid;
-    grid-template-columns: 128px 1fr;
+    grid-template-columns: minmax(96px, 112px) minmax(0, 1fr);
     align-items: start;
     column-gap: 14px;
     padding: 14px 0;
+    min-width: 0;
     min-height: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   }
@@ -895,9 +908,15 @@ a {
   }
 
   .benefit__content {
+    min-width: 0;
+    max-width: 100%;
     margin-top: 0;
     justify-self: end;
     text-align: right;
+  }
+
+  .benefit__desc-nowrap {
+    white-space: normal;
   }
 
   .benefit__text {
